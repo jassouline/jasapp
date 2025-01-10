@@ -6,7 +6,6 @@ class BaseRule:
     """
     rule_type = "generic"  # Default to generic. Can be "dockerfile" or "kubernetes".
 
-
     def __init__(self, name, description, severity="warning", friendly_name=None, hadolint=None):
         """
         Initialize a linting rule.
