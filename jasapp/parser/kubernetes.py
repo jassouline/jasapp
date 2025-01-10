@@ -1,5 +1,6 @@
 import yaml
 
+
 class KubernetesParser:
     """
     Parses Kubernetes manifests and extracts key resources and their metadata.

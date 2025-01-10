@@ -9,4 +9,4 @@ flake8_code:
     - source venv/bin/activate
     - pip install -r requirements.txt
   script:
-    - flake8 --max-line-length=150 --extend-exclude=*.pyc,*__init__.py jasapp/*.py jasapp/doc/*.py jasapp/parser/*.py jasapp/tests/*.py jasapp/rules/*.py jasapp/rules/dockerfile/*.py jasapp/rules/dockerfile/performance/*.py jasapp/rules/dockerfile/security/*.py jasapp/rules/dockerfile/syntax/*.py jasapp/rules/kubernetes/performance/*.py jasapp/rules/kubernetes/security/*.py jasapp/rules/kubernetes/syntax/*.py
+    - flake8 --max-line-length=150 --extend-exclude=*.pyc,*__init__.py ./

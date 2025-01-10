@@ -1,6 +1,7 @@
 import pytest
 from jasapp.rules.base_rule import BaseRule
 
+
 class SEC0001(BaseRule):
     rule_type = "dockerfile"
 
@@ -72,6 +73,7 @@ class SEC0001(BaseRule):
             })
 
         return errors
+
 
 @pytest.fixture
 def avoid_root_as_last_user():

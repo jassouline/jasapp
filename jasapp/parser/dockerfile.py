@@ -1,6 +1,7 @@
 
 import re
 
+
 class DockerfileParser:
     """
     Parses a Dockerfile and extracts its instructions and arguments.

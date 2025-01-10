@@ -119,6 +119,7 @@ def test_wget_with_no_verbose_allows_no_verbose_flag(use_wget_with_progress_bar_
     errors = use_wget_with_progress_bar_or_quiet.check(parsed_content)
     assert len(errors) == 0
 
+
 def test_wget_with_no_verbose_long_allows_no_verbose_flag(use_wget_with_progress_bar_or_quiet):
     parsed_content = [
         {"line": 1, "instruction": "RUN", "arguments": "wget --no-verbose example.com/file.zip"},
@@ -159,6 +160,7 @@ def test_wget_without_progress_handles_complex_commands_with_semicolon(use_wget_
     errors = use_wget_with_progress_bar_or_quiet.check(parsed_content)
     assert len(errors) == 1
     assert "Avoid use of wget without progress bar" in errors[0]["message"]
+
 
 def test_wget_without_progress_handles_output_file_flags(use_wget_with_progress_bar_or_quiet):
     parsed_content = [
