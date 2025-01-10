@@ -7,3 +7,4 @@ os
 setuptools
 requests
 pytest
+flake8
