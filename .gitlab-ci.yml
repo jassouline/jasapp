@@ -17,12 +17,18 @@ flake8_code:
     - pip install -r requirements.txt
   script:
     - flake8 --max-line-length=150 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
+  only:
+    changes:
+      - *.py
 
 docker-lint:
   stage: docker-check
   image: hadolint/hadolint:2.9.2-debian
   script:
-    - hadolint jasapp/Dockerfile
+    - hadolint Dockerfile
+  only:
+    changes:
+      - Dockerfile
 
 docker-build:
   stage: docker-build
