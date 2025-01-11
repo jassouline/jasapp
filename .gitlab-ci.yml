@@ -1,5 +1,12 @@
 stages:
   - code-check
+  - docker-check
+  - docker-build
+  - docker-test
+
+variables:
+  TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG 
+  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest 
 
 flake8_code:
   stage: code-check
@@ -10,3 +17,30 @@ flake8_code:
     - pip install -r requirements.txt
   script:
     - flake8 --max-line-length=150 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
+
+docker-lint:
+  stage: docker-check
+  image: python:3
+  before_script:
+    - hadolint/hadolint:2.9.2-debian
+  script:
+    - hadolint jasapp/Dockerfile
+
+docker-build:
+  stage: docker-build
+  image: docker:24
+  services:
+    - docker:24.0.5-dind
+  before_script: 
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY 
+  script: 
+    - docker build -t $TEST_IMAGE . 
+    - docker push $TEST_IMAGE
+
+test: 
+  stage: docker-test
+  image: docker:24 
+  services: 
+    - docker:24.0.5-dind
+  script:
+    - docker run --rm -d $TEST_IMAGE --file jasapp/examples/dockerfile/example.Dockerfile --score --type dockerfile
