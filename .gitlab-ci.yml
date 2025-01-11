@@ -20,9 +20,7 @@ flake8_code:
 
 docker-lint:
   stage: docker-check
-  image: python:3
-  before_script:
-    - hadolint/hadolint:2.9.2-debian
+  image: hadolint/hadolint:2.9.2-debian
   script:
     - hadolint jasapp/Dockerfile
 
