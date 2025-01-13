@@ -53,4 +53,4 @@ docker-test:
   services: 
     - docker:24.0.5-dind
   script:
-    - docker run --rm -d $TEST_IMAGE --file jasapp/examples/dockerfile/example.Dockerfile --score --type dockerfile
+    - docker run --rm -d -it $TEST_IMAGE --file jasapp/examples/dockerfile/example.Dockerfile --score --type dockerfile
