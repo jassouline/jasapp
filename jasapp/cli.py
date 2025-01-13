@@ -16,6 +16,9 @@ from jasapp.renderers import (
     SonarQubeRenderer,
     SARIFRenderer)
 
+# Importer la version depuis __init__.py
+from jasapp import __version__
+
 
 def main():
     """
@@ -50,6 +53,11 @@ def main():
         "--exit-code",
         action="store_true",
         help="Return exit code 1 if any error or warning is found, otherwise return 0."
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"Jasapp version {__version__}"
     )
 
     args = parser.parse_args()
