@@ -54,3 +54,10 @@ docker-test:
     - docker:24.0.5-dind
   script:
     - docker run --rm $TEST_IMAGE --score --type dockerfile jasapp/examples/dockerfile/example.good.Dockerfile 
+  only:
+    changes:
+      - ./*.py
+      - Dockerfile
+      - .dockerignore
+      - requirements.txt
+      - .gitlab-ci.yml
