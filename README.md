@@ -129,6 +129,7 @@ Here is a list of the rules implemented by Jasapp, categorized by type:
 | PERF0002 | Avoid use of wget without progress bar. Use `wget --progress=dot:giga <url>`. Or consider using `-q` or `-nv` (shorthands for `--quiet` or `--no-verbose`). | info |
 | PERF0004 | Multiple consecutive `RUN` instructions. Consider consolidation. | info |
 | PERF0005 | Either use `wget` or `curl` but not both | warning |
+| PERF0006 | Use `COPY --chown` instead of separate `RUN chown` | info |
 
 ### Security
 
@@ -139,6 +140,9 @@ Here is a list of the rules implemented by Jasapp, categorized by type:
 | SEC0003 | Add a HEALTHCHECK dockerfile instruction to perform the health check on running containers. | info |
 | SEC0004 | Do not use `update` instructions alone in the Dockerfile. | info |
 | SEC0005 | Avoid mounting sensitive directories in Docker volumes | error |
+| SEC0006 | Hardcoded secrets found in `ENV`, `ARG`, or `RUN` instruction. | error |
+| SEC0011 | Insecure file permissions set with `chmod` in `RUN` instruction | warning |
+| SEC0012 | Potentially dangerous shell command used in `RUN` instruction | warning |
 
 ### Syntax
 
@@ -200,3 +204,5 @@ Here is a list of the rules implemented by Jasapp, categorized by type:
 | STX0055 | Multiple `CMD` instructions found. If you list more than one `CMD` then only the last `CMD` will take effect. | warning |
 | STX0056 | Multiple `ENTRYPOINT` instructions found. If you list more than one `ENTRYPOINT` then only the last `ENTRYPOINT` will take effect. | error |
 | STX0057 | Use `SHELL` to change the default shell | warning |
+| STX0063 | `USER` instruction used before `WORKDIR`, `COPY`, or `ADD` | warning |
+| STX0064 | `RUN` instruction after `CMD` or `ENTRYPOINT` | warning |
