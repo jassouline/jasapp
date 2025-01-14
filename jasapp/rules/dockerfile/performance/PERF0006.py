@@ -89,6 +89,7 @@ def test_copy_chown_ignores_other_instructions(use_copy_chown):
     errors = use_copy_chown.check(parsed_content)
     assert len(errors) == 0
 
+
 def test_copy_chown_resets_by_from(use_copy_chown):
     parsed_content = [
         {"line": 1, "instruction": "FROM", "arguments": "ubuntu:22.04"},
