@@ -56,7 +56,7 @@ class SEC0012(BaseRule):
             r"cat\s+/dev/zero\s+>",  # Writing infinite zeros to a file
             r"dd\s+if=/dev/random",  # Using dd with /dev/random (can be slow and unpredictable)
             r"dd\s+if=/dev/zero",    # Similar to cat /dev/zero
-            r">\s*/dev/null", # Redirection to /dev/null
+            r">\s*/dev/null",  # Redirection to /dev/null
             # Add more patterns as needed
         ]
 
@@ -90,6 +90,7 @@ def test_dangerous_command_detects_dd_dev_random(potentially_dangerous_command):
     assert len(errors) == 1
     assert errors[0]["line"] == 1
     assert "Potentially dangerous shell command" in errors[0]["message"]
+
 
 def test_dangerous_command_detects_null_redirection(potentially_dangerous_command):
     parsed_content = [
