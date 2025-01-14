@@ -6,6 +6,7 @@ class SEC0017(BaseRule):
     """
     Rule to detect if the `NODE_TLS_REJECT_UNAUTHORIZED` environment variable is set to `0`,
     disabling TLS certificate validation for Node.js applications.
+
     """
     rule_type = "dockerfile"
 

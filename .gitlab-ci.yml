@@ -19,7 +19,7 @@ flake8_code:
     - flake8 --max-line-length=220 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
   only:
     changes:
-      - ./*.py
+      - "**/*.py"
 
 docker-lint:
   stage: docker-check
@@ -42,7 +42,7 @@ docker-build:
     - docker push $TEST_IMAGE
   only:
     changes:
-      - ./*.py
+      - "**/*.py"
       - Dockerfile
       - .dockerignore
       - requirements.txt
