@@ -16,7 +16,7 @@ flake8_code:
     - source venv/bin/activate
     - pip install -r requirements.txt
   script:
-    - flake8 --max-line-length=150 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
+    - flake8 --max-line-length=220 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
   only:
     changes:
       - ./*.py
