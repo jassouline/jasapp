@@ -21,3 +21,17 @@ STX0059: Vérifier que les valeurs des labels respectent un certain format (par 
 Description: Label value does not match the required format (defined by a regular expression).
 Sévérité: warning
 
+
+
+
+Règles à implémenter :
+
+SEC0019 : Dockerfile APT package manager is configured to allow unauthenticated packages
+SEC0020 : Dockerfile YUM package manager is configured to skip GPG signature checks
+SEC0021 : Dockerfile RPM package manager is configured to skip package signature checks
+SEC0022 : Dockerfile APT package manager is configured to force package installations without prompts or verifications
+SEC0023 : Dockerfile configuration disables strict SSL for NPM
+SEC0024 : Dockerfile sets NPM configuration to disable strict SSL
+SEC0025 : Dockerfile configures GIT to disable SSL verification
+SEC0026 : Dockerfile sets YUM configuration to disable SSL verification
+SEC0027 : Dockerfile uses a trusted host with pip
