@@ -55,7 +55,7 @@ docker-test:
     - docker:24.0.5-dind
   script:
     - docker run --rm $TEST_IMAGE --version 
-    - docker run --rm $TEST_IMAGE --score --type dockerfile jasapp/examples/dockerfile/example.good.Dockerfile
+    - docker run --rm $TEST_IMAGE --score --type dockerfile --exit-code jasapp/examples/dockerfile/example.good.Dockerfile
 
   only:
     changes:

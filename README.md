@@ -117,10 +117,7 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --ignore STX0001
 jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
 ```
 
-## Rules
-
-Here is a list of the rules implemented by Jasapp, categorized by type:
-
+## Dockerfile Rules
 ### Performance
 
 | Rule | Description | Severity |
@@ -143,6 +140,23 @@ Here is a list of the rules implemented by Jasapp, categorized by type:
 | SEC0006 | Hardcoded secrets found in `ENV`, `ARG`, or `RUN` instruction. | error |
 | SEC0011 | Insecure file permissions set with `chmod` in `RUN` instruction | warning |
 | SEC0012 | Potentially dangerous shell command used in `RUN` instruction | warning |
+| SEC0013 | `curl` command in `RUN` instruction is disabling certificate validation. | error |
+| SEC0014 | `wget` command in `RUN` instruction is disabling certificate validation. | error |
+| SEC0015 | `pip` command in `RUN` instruction is using `--trusted-host` option, which disables certificate validation. | error |
+| SEC0016 | `PYTHONHTTPSVERIFY` environment variable is set to `0`, disabling HTTPS certificate verification. | error |
+| SEC0017 | `NODE_TLS_REJECT_UNAUTHORIZED` environment variable is set to `0`, disabling TLS certificate validation. | error |
+| SEC0018 | `apk` is configured to allow untrusted repositories. | error |
+| SEC0019 | `apt` or `apt-get` is configured to allow unauthenticated packages. | error |
+| SEC0020 | `yum` is configured to skip GPG signature checks. | error |
+| SEC0021 | `rpm` is configured to skip package signature checks. | error |
+| SEC0022 | `apt-get install` is used without `-y` or with `--force-yes` or `--allow-unauthenticated`, which can bypass prompts and verifications. | error |
+| SEC0023 | `npm config set strict-ssl false` is used, which disables strict SSL verification. | error |
+| SEC0024 | `npm` configuration is modified to disable strict SSL verification. | error |
+| SEC0025 | `git` is configured to disable SSL verification. | error |
+| SEC0026 | `yum` is configured to disable SSL verification. | error |
+| SEC0027 | `pip` command in `RUN` instruction is using `--trusted-host` option. | warning |
+| SEC0028 | Port 22 is exposed, which can pose a security risk. | warning |
+| SEC0029 | No `USER` instruction found in the Dockerfile. Consider adding a non-root user. | warning |
 
 ### Syntax
 
@@ -189,7 +203,7 @@ Here is a list of the rules implemented by Jasapp, categorized by type:
 | STX0040 | `ONBUILD`, `FROM`, or `MAINTAINER` should not be triggered from within `ONBUILD` instruction. | error |
 | STX0041 | Do not refer to an environment variable within the same `ENV` statement where it is defined. | error |
 | STX0042 | `COPY` to a relative destination without `WORKDIR` set. | warning |
-| STX0043 | Invalid label key. | style |
+| STX0043 | Invalid label key. | info |
 | STX0044 | Required label is missing. | info |
 | STX0045 | Superfluous label present. | info |
 | STX0046 | Label is empty. | warning |
@@ -206,3 +220,29 @@ Here is a list of the rules implemented by Jasapp, categorized by type:
 | STX0057 | Use `SHELL` to change the default shell | warning |
 | STX0063 | `USER` instruction used before `WORKDIR`, `COPY`, or `ADD` | warning |
 | STX0064 | `RUN` instruction after `CMD` or `ENTRYPOINT` | warning |
+
+
+## Kubernetes 
+### Performance
+
+| Rule | Description | Severity |
+| :--- | :---------- | :------- |
+| K8S-PERF-0001 | CPU limits are not set for container. | warning |
+| K8S-PERF-0002 | Memory requests are not set for container. | warning |
+| K8S-PERF-0003 | Memory limits are not set for container. | warning |
+
+### Security
+
+| Rule | Description | Severity |
+| :--- | :---------- | :------- |
+| K8S-SEC-0001 | Containers should not be allowed to share the host's process ID namespace. | error |
+| K8S-SEC-0002 | Containers should not be privileged. | error |
+| K8S-SEC-0003 | Containers should not share the host's process ID namespace. | warning |
+| K8S-SEC-0004 | Containers should not share the host's IPC namespace. | warning |
+
+### Syntax
+
+| Rule | Description | Severity |
+| :--- | :---------- | :------- |
+| K8S-STX-0001 | Image tag is not set to a specific version. Avoid 'latest' or no tag. | warning |
+| K8S-STX-0002 | `imagePullPolicy` is not set to `Always`. | warning |

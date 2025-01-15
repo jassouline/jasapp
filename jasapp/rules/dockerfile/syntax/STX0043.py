@@ -15,7 +15,7 @@ class STX0043(BaseRule):
             hadolint="DL3048",
             name="STX0043",
             description="Invalid label key.",
-            severity="style",
+            severity="info",
         )
 
     def check(self, instructions):

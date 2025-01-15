@@ -3,7 +3,7 @@ import importlib
 import inspect
 
 
-def extract_rule_data(rules_dir):
+def extract_rule_data(rules_dir, type):
     """
     Extracts rule information (name, description, severity) from Python files in the specified directory.
 
@@ -19,12 +19,12 @@ def extract_rule_data(rules_dir):
             module_name = filename[:-3]  # Remove .py extension
             try:
                 # Construct the module path for dynamic importing
-                module_path = f"jasapp.rules.dockerfile.{os.path.basename(rules_dir)}.{module_name}"
+                module_path = f"jasapp.rules.{type}.{os.path.basename(rules_dir)}.{module_name}"
                 module = importlib.import_module(module_path)
 
                 # Iterate over classes within each module
                 for name, obj in inspect.getmembers(module):
-                    if inspect.isclass(obj) and hasattr(obj, 'rule_type') and obj.rule_type == "dockerfile":
+                    if inspect.isclass(obj) and hasattr(obj, 'rule_type') and obj.rule_type == type:
                         # Assuming the class name matches the rule name (e.g., STX0001)
                         rule_instance = obj()
                         rule_data.append({
@@ -57,7 +57,8 @@ def generate_markdown_table(rule_data, section):
 
 
 def main():
-    rules_base_dir = "jasapp/rules/dockerfile"
+    rules_base_dir_dockerfile = "jasapp/rules/dockerfile"
+    rules_base_dir_kubernetes = "jasapp/rules/kubernetes"
 
     sections = {
         "Performance": "performance",
@@ -65,19 +66,32 @@ def main():
         "Syntax": "syntax"
     }
 
-    markdown_output = ""
+    markdown_output_dockerfile = "## Dockerfile \n"
+    markdown_output_kubernetes = "## Kubernetes \n"
 
     for section_name, section_path in sections.items():
-        rules_dir = os.path.join(rules_base_dir, section_path)
-        rule_data = extract_rule_data(rules_dir)
+        rules_dir = os.path.join(rules_base_dir_dockerfile, section_path)
+        rule_data = extract_rule_data(rules_dir, type="dockerfile")
 
         # Sort rule data by rule name
         rule_data.sort(key=lambda x: x['name'])
 
-        markdown_output += generate_markdown_table(rule_data, section_name)
-        markdown_output += "\n"
+        markdown_output_dockerfile += generate_markdown_table(rule_data, section_name)
+        markdown_output_dockerfile += "\n"
 
-    print(markdown_output)
+    print(markdown_output_dockerfile)
+
+    for section_name, section_path in sections.items():
+        rules_dir = os.path.join(rules_base_dir_kubernetes, section_path)
+        rule_data = extract_rule_data(rules_dir, type="kubernetes")
+
+        # Sort rule data by rule name
+        rule_data.sort(key=lambda x: x['name'])
+
+        markdown_output_kubernetes += generate_markdown_table(rule_data, section_name)
+        markdown_output_kubernetes += "\n"
+
+    print(markdown_output_kubernetes)
 
 
 if __name__ == "__main__":
