@@ -3,6 +3,7 @@ stages:
   - docker-check
   - docker-build
   - docker-test
+  - docker-release
 
 variables:
   TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG 
@@ -53,7 +54,9 @@ docker-test:
   services: 
     - docker:24.0.5-dind
   script:
-    - docker run --rm $TEST_IMAGE --score --type dockerfile jasapp/examples/dockerfile/example.good.Dockerfile 
+    - docker run --rm $TEST_IMAGE --version 
+    - docker run --rm $TEST_IMAGE --score --type dockerfile jasapp/examples/dockerfile/example.good.Dockerfile
+
   only:
     changes:
       - ./*.py
@@ -61,3 +64,14 @@ docker-test:
       - .dockerignore
       - requirements.txt
       - .gitlab-ci.yml
+
+release-image:
+  stage: docker-release
+  image: docker:24.0.5-dind
+  before_script:
+    - docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY
+  script:
+    - docker pull $TEST_IMAGE
+    - docker tag $TEST_IMAGE $DOCKER_HUB_REGISTRY_USER/jasapp:$CI_COMMIT_REF_SLUG
+  only:
+    - main
