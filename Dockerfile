@@ -10,7 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt . \
     && addgroup jasapp \
     && useradd -rm -d /home/jasapp -s /bin/bash -g jasapp -u 1001 jasapp
 
-
 USER jasapp
 
 ENTRYPOINT [ "jasapp" ]
