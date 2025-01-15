@@ -6,8 +6,8 @@ stages:
   - docker-release
 
 variables:
-  TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG 
-  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest 
+  TEST_IMAGE: $DOCKER_HUB_REGISTRY_USER/jasapp:$CI_COMMIT_REF_SLUG 
+  RELEASE_IMAGE: $DOCKER_HUB_REGISTRY_USER/jasapp:latest 
 
 flake8_code:
   stage: code-check
@@ -37,7 +37,7 @@ docker-build:
   services:
     - docker:24.0.5-dind
   before_script: 
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY 
+    - docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY
   script: 
     - docker build -t $TEST_IMAGE . 
     - docker push $TEST_IMAGE
@@ -72,6 +72,6 @@ release-image:
     - docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY
   script:
     - docker pull $TEST_IMAGE
-    - docker tag $TEST_IMAGE $DOCKER_HUB_REGISTRY_USER/jasapp:$CI_COMMIT_REF_SLUG
+    - docker tag $TEST_IMAGE $RELEASE_IMAGE
   only:
     - main
