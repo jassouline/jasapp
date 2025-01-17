@@ -13,7 +13,7 @@ class K8S_PERF_0004(BaseRule):
             friendly_name="CPURequestsMissing",
             name="K8S-PERF-0004",
             description="CPU requests are not set for container.",
-            severity="info",
+            severity="warning",
         )
 
     def check(self, resources):

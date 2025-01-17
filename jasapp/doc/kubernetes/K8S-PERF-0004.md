@@ -48,7 +48,7 @@ spec:
 
 ## Severity
 
-  - **Info**
+  - **Warning**
 
 ## Other Relevant Information
 

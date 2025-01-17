@@ -3,24 +3,76 @@ import xml.etree.ElementTree as ET
 
 
 class ConsoleRenderer:
+
+    def __init__(self):
+        self.colors = {
+            "error": "\033[91m",  # Red
+            "warning": "\033[93m",  # Yellow
+            "info": "\033[90m",  # Gray
+            "style": "\033[94m"  # Blue
+        }
+        self.reset = "\033[0m"  # Reset color
+
     def render(self, errors):
         if errors:
-            print("\nLinting errors found:")
-            for index, error in enumerate(errors):
-                print(self.format_error(error, index))
+            errors.sort(key=lambda x: (self.severity_sort_key(x["severity"]), x.get("line", 0)))
+
+            error_count = sum(1 for error in errors if error["severity"] == "error")
+            warning_count = sum(1 for error in errors if error["severity"] == "warning")
+            info_count = sum(1 for error in errors if error["severity"] == "info")
+            style_count = sum(1 for error in errors if error["severity"] == "style")
+
+            print(f"\nLinting errors found: {error_count} ERROR(S), {warning_count} WARNING(S), {style_count} STYLE(S), {info_count} INFO(S)\n")
+
+            if error_count > 0:
+                print("ERRORS:")
+                for index, error in enumerate([e for e in errors if e["severity"] == "error"]):
+                    print(self.format_error(error, index))
+
+            if warning_count > 0:
+                print("WARNINGS:")
+                for index, error in enumerate([e for e in errors if e["severity"] == "warning"]):
+                    print(self.format_error(error, index))
+
+            if info_count > 0:
+                print("INFO:")
+                for index, error in enumerate([e for e in errors if e["severity"] == "info"]):
+                    print(self.format_error(error, index))
+
+            if style_count > 0:
+                print("STYLE:")
+                for index, error in enumerate([e for e in errors if e["severity"] == "style"]):
+                    print(self.format_error(error, index))
         else:
             print("\nNo linting errors found.")
 
+    def severity_sort_key(self, severity):
+        """
+        Helper function for sorting by severity.
+        Error > Warning > Info > Style > Unknown
+        """
+        if severity == "error":
+            return 0
+        elif severity == "warning":
+            return 1
+        elif severity == "info":
+            return 2
+        elif severity == "style":
+            return 3
+        else:
+            return 4
+
     def format_error(self, error, index):
+        color = self.colors.get(error["severity"], "")
         return (
-            f"{index + 1}. [{error['rule']}] Line {error.get('line', 'N/A')}: "
-            f"{error['message']} (Severity: {error['severity']})"
+            f"{index + 1}. {color}[{error['rule']}]{self.reset} Line {error.get('line', 'N/A')}: "
+            f"{error['message']} (Severity: {color}{error['severity']}{self.reset})"
         )
 
 
 class JSONRenderer:
     def render(self, errors):
-        print(json.dumps(errors, indent=4))
+        print(json.dumps(errors, indent=2))
 
 
 class CheckstyleRenderer:
@@ -213,4 +265,4 @@ class SARIFRenderer:
             }
             sarif_output["runs"][0]["results"].append(result)
 
-        print(json.dumps(sarif_output, indent=4))
+        print(json.dumps(sarif_output, indent=2))
