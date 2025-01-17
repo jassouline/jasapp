@@ -117,7 +117,7 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --ignore STX0001
 jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
 ```
 
-## Dockerfile Rules
+## Dockerfile rules
 ### Performance
 
 | Rule | Description | Severity |
@@ -218,11 +218,10 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
 | STX0055 | Multiple `CMD` instructions found. If you list more than one `CMD` then only the last `CMD` will take effect. | warning |
 | STX0056 | Multiple `ENTRYPOINT` instructions found. If you list more than one `ENTRYPOINT` then only the last `ENTRYPOINT` will take effect. | error |
 | STX0057 | Use `SHELL` to change the default shell | warning |
-| STX0063 | `USER` instruction used before `WORKDIR`, `COPY`, or `ADD` | warning |
+| STX0063 | `USER` instruction used before `WORKDIR`, `COPY`, or `ADD` within the same stage | warning |
 | STX0064 | `RUN` instruction after `CMD` or `ENTRYPOINT` | warning |
 
-
-## Kubernetes 
+## Kubernetes Rules
 ### Performance
 
 | Rule | Description | Severity |
@@ -230,6 +229,7 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
 | K8S-PERF-0001 | CPU limits are not set for container. | warning |
 | K8S-PERF-0002 | Memory requests are not set for container. | warning |
 | K8S-PERF-0003 | Memory limits are not set for container. | warning |
+| K8S-PERF-0004 | CPU requests are not set for container. | info |
 
 ### Security
 
@@ -239,6 +239,33 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
 | K8S-SEC-0002 | Containers should not be privileged. | error |
 | K8S-SEC-0003 | Containers should not share the host's process ID namespace. | warning |
 | K8S-SEC-0004 | Containers should not share the host's IPC namespace. | warning |
+| K8S-SEC-0005 | Containers should not share the host's network namespace. | warning |
+| K8S-SEC-0006 | Containers should not allow privilege escalation. | warning |
+| K8S-SEC-0007 | Containers should not be privileged. | error |
+| K8S-SEC-0008 | Containers should use a read-only root filesystem. | info |
+| K8S-SEC-0009 | Containers should not be allowed to run as root. | warning |
+| K8S-SEC-0010 | Containers should only add specific capabilities. | info |
+| K8S-SEC-0010 | Containers should not use hostPort. | info |
+| K8S-SEC-0011 | Containers should drop all capabilities and add only those required. | info |
+| K8S-SEC-0013 | Containers should not mount the Docker socket. | warning |
+| K8S-SEC-0014 | Containers should drop the NET_RAW capability unless explicitly allowed. | info |
+| K8S-SEC-0015 | `securityContext` is not applied to pods or containers. | info |
+| K8S-SEC-0016 | Seccomp profile should be set to `RuntimeDefault` or `DockerDefault`. | info |
+| K8S-SEC-0017 | Containers should not share the host's IPC namespace. | warning |
+| K8S-SEC-0018 | Seccomp profile should be set to `RuntimeDefault` or `DockerDefault`. | info |
+| K8S-SEC-0019 | Kubernetes dashboard is deployed. | info |
+| K8S-SEC-0020 | Tiller (Helm V2) is deployed, which has known security risks. | info |
+| K8S-SEC-0021 | Secrets should not be used as environment variables. | info |
+| K8S-SEC-0022 | Containers should drop all capabilities and add only those required. | info |
+| K8S-SEC-0023 | Service account tokens should not be mounted unless explicitly set to false. | info |
+| K8S-SEC-0024 | Containers should not add the `CAP_SYS_ADMIN` capability. | error |
+| K8S-SEC-0025 | Containers should be configured to run with a high UID (>= 10000). | info |
+| K8S-SEC-0026 | The default service account should not be actively used. | info |
+| K8S-SEC-0027 | Containers should not share the host's network namespace. | warning |
+| K8S-SEC-0028 | Tiller (Helm V2) deployment is accessible from within the cluster. | info |
+| K8S-SEC-0029 | Tiller (Helm V2) service should be deleted from the cluster. | info |
+| K8S-SEC-0030 | Containers should not be allowed to run as root. | warning |
+| K8S-SEC-0031 | Containers should drop the NET_RAW capability or drop ALL capabilities. | info |
 
 ### Syntax
 
@@ -246,3 +273,7 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
 | :--- | :---------- | :------- |
 | K8S-STX-0001 | Image tag is not set to a specific version. Avoid 'latest' or no tag. | warning |
 | K8S-STX-0002 | `imagePullPolicy` is not set to `Always`. | warning |
+| K8S-STX-0004 | Avoid using the 'default' namespace in Kubernetes resources. | info |
+| K8S-STX-0004 | Image tag should be a digest (sha256) for immutability. | info |
+| K8S-STX-0006 | Containers should have a liveness probe configured. | info |
+| K8S-STX-0007 | Containers should have a readiness probe configured. | info |

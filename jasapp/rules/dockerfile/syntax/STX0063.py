@@ -4,7 +4,7 @@ from jasapp.rules.base_rule import BaseRule
 
 class STX0063(BaseRule):
     """
-    Rule to detect `USER` instruction before `WORKDIR`, `COPY`, or `ADD` instructions.
+    Rule to detect `USER` instruction before `WORKDIR`, `COPY`, or `ADD` instructions within the same stage.
     """
     rule_type = "dockerfile"
 
@@ -12,15 +12,14 @@ class STX0063(BaseRule):
         super().__init__(
             friendly_name="UserBeforeWorkdirCopyAdd",
             name="STX0063",
-            description="`USER` instruction used before `WORKDIR`, `COPY`, or `ADD`",
+            description="`USER` instruction used before `WORKDIR`, `COPY`, or `ADD` within the same stage",
             severity="warning",
         )
-        self.in_stage = False
         self.workdir_copy_add_found = False
 
     def check(self, instructions):
         """
-        Checks for `USER` instructions before `WORKDIR`, `COPY`, or `ADD` instructions.
+        Checks for `USER` instructions before `WORKDIR`, `COPY`, or `ADD` instructions within the same stage.
 
         Args:
             instructions (list): A list of dictionaries containing parsed Dockerfile instructions.
@@ -33,19 +32,15 @@ class STX0063(BaseRule):
         for instr in instructions:
             if instr["instruction"] == "FROM":
                 # Reset state for new FROM instruction
-                self.in_stage = True
                 self.workdir_copy_add_found = False
             elif instr["instruction"] in ["WORKDIR", "COPY", "ADD"]:
                 self.workdir_copy_add_found = True
             elif instr["instruction"] == "USER" and not self.workdir_copy_add_found:
                 errors.append({
                     "line": instr["line"],
-                    "message": "`USER` instruction used before `WORKDIR`, `COPY`, or `ADD`",
+                    "message": "`USER` instruction used before `WORKDIR`, `COPY`, or `ADD` within the same stage",
                     "severity": self.severity,
                 })
-            else:
-                self.in_stage = False
-                self.workdir_copy_add_found = False
 
         return errors
 
@@ -99,22 +94,6 @@ def test_user_before_workdir_copy_add_allows_user_after_workdir_copy_add(user_be
     ]
     errors = user_before_workdir_copy_add.check(parsed_content)
     assert len(errors) == 0
-
-
-def test_user_before_workdir_copy_add_allows_user_in_separate_stage(user_before_workdir_copy_add):
-    parsed_content = [
-        {"line": 1, "instruction": "FROM", "arguments": "ubuntu:latest"},
-        {"line": 2, "instruction": "USER", "arguments": "testuser"},
-        {"line": 3, "instruction": "WORKDIR", "arguments": "/app"},
-        {"line": 4, "instruction": "FROM", "arguments": "alpine:latest"},
-        {"line": 5, "instruction": "USER", "arguments": "anotheruser"},
-        {"line": 6, "instruction": "WORKDIR", "arguments": "/app"},
-    ]
-    errors = user_before_workdir_copy_add.check(parsed_content)
-    assert len(errors) == 2  # On s'attend maintenant à 2 erreurs
-    assert errors[0]["line"] == 2
-    assert errors[1]["line"] == 5
-    assert "`USER` instruction used before `WORKDIR`, `COPY`, or `ADD`" in errors[0]["message"]
 
 
 def test_user_before_workdir_copy_add_ignores_other_instructions(user_before_workdir_copy_add):

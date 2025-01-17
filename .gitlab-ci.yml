@@ -22,6 +22,21 @@ flake8_code:
     changes:
       - "**/*.py"
 
+pytest_rules:
+  stage: code-check
+  image: python:3
+  before_script:
+    - python3 -m venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+  script:
+    - pytest jasapp/rules/kubernetes/syntax/*.py
+    - pytest jasapp/rules/kubernetes/security/*.py
+    - pytest jasapp/rules/kubernetes/performance/*.py
+    - pytest jasapp/rules/dockerfile/syntax/*.py
+    - pytest jasapp/rules/dockerfile/security/*.py
+    - pytest jasapp/rules/dockerfile/performance/*.py
+
 docker-lint:
   stage: docker-check
   image: hadolint/hadolint:2.9.2-debian
