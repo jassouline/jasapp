@@ -4,3 +4,4 @@ setuptools
 requests
 pytest
 flake8
+email-validator
