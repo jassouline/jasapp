@@ -1,0 +1,20 @@
+name: Docker Check
+
+on:
+  push:
+    paths:
+      - 'Dockerfile'
+
+jobs:
+  docker-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+          # Optional: Ignore specific rules
+          # ignore: DL3000,DL3001

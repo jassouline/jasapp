@@ -1,0 +1,28 @@
+name: Docker Test
+
+on:
+  push:
+    paths:
+      - '**/*.py'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'requirements.txt'
+      - '.github/workflows/docker-build.yml' # Trigger if the build workflow changes
+
+jobs:
+  docker-test:
+    runs-on: ubuntu-latest
+    env:
+      TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.sha }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Pull Docker image
+        run: docker pull ${{ env.TEST_IMAGE }}
+
+      - name: Run jasapp --version
+        run: docker run --rm ${{ env.TEST_IMAGE }} --version
+
+      - name: Run jasapp with score and exit-code
+        run: docker run --rm ${{ env.TEST_IMAGE }} --score --type dockerfile --exit-code jasapp/examples/dockerfile/example.good.Dockerfile
