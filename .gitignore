@@ -2,5 +2,5 @@ __pycache__/
 *.pyc
 Rules_ideas
 study
-structure.txt
 generate_rules_table.py
+structure.txt
