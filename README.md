@@ -60,7 +60,7 @@ Jasapp is a static analysis tool (linter) for configuration files, specifically 
     pip install -r requirements.txt .
     ```
 
-### Installation from PyPI (coming soon)
+### Installation from PyPI
 
 ```bash
 pip install jasapp
