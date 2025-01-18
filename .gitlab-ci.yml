@@ -82,7 +82,9 @@ docker-test:
 
 release-image:
   stage: docker-release
-  image: docker:24.0.5-dind
+  image: docker:24
+  services:
+    - docker:24.0.5-dind
   before_script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u $DOCKER_HUB_REGISTRY_USER --password-stdin
   script:
