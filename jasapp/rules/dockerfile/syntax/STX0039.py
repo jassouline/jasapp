@@ -45,6 +45,7 @@ class STX0039(BaseRule):
                             "message": "Avoid using cache directory with pip. "
                                        "Use `pip install --no-cache-dir <package>`",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

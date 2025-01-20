@@ -35,6 +35,7 @@ class STX0054(BaseRule):
                     "line": instr["line"],
                     "message": "`MAINTAINER` is deprecated",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
 
         return errors

@@ -36,6 +36,7 @@ class SEC0018(BaseRule):
                         "message": "`apk` is configured to allow untrusted repositories. "
                                    "Use `--allow-untrusted` or `--no-allow-untrusted` explicitly.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

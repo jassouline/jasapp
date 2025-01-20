@@ -14,8 +14,7 @@ class STX0016(BaseRule):
             hadolint="DL3016",
             name="STX0016",
             description=(
-                "Pin versions in npm. Instead of `npm install <package>` use "
-                "`npm install <package>@<version>`."
+                "Pin versions in npm. Instead of `npm install <package>` use `npm install <package>@<version>`."
             ),
             severity="warning",
         )
@@ -43,6 +42,7 @@ class STX0016(BaseRule):
                                 "`npm install <package>@<version>`."
                             ),
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

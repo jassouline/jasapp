@@ -13,7 +13,7 @@ class SEC0028(BaseRule):
             friendly_name="NoExposePort22",
             name="SEC0028",
             description="Port 22 is exposed, which can pose a security risk.",
-            severity="warning",
+            severity="warning"
         )
 
     def check(self, instructions):
@@ -34,6 +34,7 @@ class SEC0028(BaseRule):
                     "line": instr["line"],
                     "message": "Port 22 is exposed, which can pose a security risk.",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
 
         return errors

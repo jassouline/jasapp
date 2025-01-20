@@ -36,6 +36,7 @@ class SEC0021(BaseRule):
                         "message": "`rpm` is configured to skip package signature checks. "
                                    "Avoid using `--nosignature` or similar options that bypass signature verification.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

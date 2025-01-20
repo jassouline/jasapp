@@ -66,6 +66,7 @@ class STX0010(BaseRule):
                                 "line": line,
                                 "message": message + " " + more_comments,
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
         return errors

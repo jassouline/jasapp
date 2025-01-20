@@ -7,7 +7,7 @@ Features:
 - Scoring system to evaluate file quality on a scale of 100.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 __author__ = "Jordan Assouline"
 __license__ = "MIT"
 

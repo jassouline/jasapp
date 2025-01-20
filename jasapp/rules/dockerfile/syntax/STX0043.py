@@ -38,6 +38,7 @@ class STX0043(BaseRule):
                             "line": instr["line"],
                             "message": f"Invalid label key: '{key}'.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

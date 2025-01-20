@@ -46,6 +46,7 @@ class PERF0005(BaseRule):
                             "line": instr["line"],
                             "message": "Either use `wget` or `curl` but not both",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                 self.has_wget_or_curl = set()

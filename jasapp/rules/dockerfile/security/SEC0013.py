@@ -36,6 +36,7 @@ class SEC0013(BaseRule):
                         "message": "`curl` command in `RUN` instruction is disabling certificate validation. "
                                    "Use `--fail` or `-f` and `--insecure` or `-k` to ensure proper certificate validation.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

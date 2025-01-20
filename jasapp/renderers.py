@@ -25,24 +25,24 @@ class ConsoleRenderer:
             print(f"\nLinting errors found: {error_count} ERROR(S), {warning_count} WARNING(S), {style_count} STYLE(S), {info_count} INFO(S)\n")
 
             if error_count > 0:
-                print("ERRORS:")
-                for index, error in enumerate([e for e in errors if e["severity"] == "error"]):
-                    print(self.format_error(error, index))
+              print("ERRORS:")
+              for index, error in enumerate([e for e in errors if e["severity"] == "error"]):
+                  print(self.format_error(error, index))
 
             if warning_count > 0:
-                print("WARNINGS:")
-                for index, error in enumerate([e for e in errors if e["severity"] == "warning"]):
-                    print(self.format_error(error, index))
+              print("WARNINGS:")
+              for index, error in enumerate([e for e in errors if e["severity"] == "warning"]):
+                  print(self.format_error(error, index))
 
             if info_count > 0:
-                print("INFO:")
-                for index, error in enumerate([e for e in errors if e["severity"] == "info"]):
-                    print(self.format_error(error, index))
+              print("INFO:")
+              for index, error in enumerate([e for e in errors if e["severity"] == "info"]):
+                  print(self.format_error(error, index))
 
             if style_count > 0:
-                print("STYLE:")
-                for index, error in enumerate([e for e in errors if e["severity"] == "style"]):
-                    print(self.format_error(error, index))
+              print("STYLE:")
+              for index, error in enumerate([e for e in errors if e["severity"] == "style"]):
+                  print(self.format_error(error, index))
         else:
             print("\nNo linting errors found.")
 
@@ -64,9 +64,12 @@ class ConsoleRenderer:
 
     def format_error(self, error, index):
         color = self.colors.get(error["severity"], "")
+        # Display doc_link if available and only if different from empty string
+        doc_link = f"  For more information, see: {error['doc_link']}" if 'doc_link' in error and error['doc_link'] != "" else ""
         return (
             f"{index + 1}. {color}[{error['rule']}]{self.reset} Line {error.get('line', 'N/A')}: "
             f"{error['message']} (Severity: {color}{error['severity']}{self.reset})"
+            f"\n{doc_link}"
         )
 
 

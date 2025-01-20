@@ -37,6 +37,7 @@ class STX0053(BaseRule):
                         "line": instr["line"],
                         "message": "Invalid instruction order. Dockerfile must begin with `FROM`, `ARG`, a comment, or a parser directive.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
             elif instr["instruction"] == "FROM":
                 self.has_from = True
@@ -45,6 +46,7 @@ class STX0053(BaseRule):
                     "line": instr["line"],
                     "message": "Invalid instruction order. `ARG` instructions are only allowed before the first `FROM`",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
                 self.valid_start = False  # Reset valid_start when an invalid instruction is found after a valid start
         return errors

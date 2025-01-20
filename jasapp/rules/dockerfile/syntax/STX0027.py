@@ -42,6 +42,7 @@ class STX0027(BaseRule):
                                 "message": f"Pin versions in gem install. Instead of `gem install {gem}` "
                                            f"use `gem install {gem}:<version>`",
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
         return errors

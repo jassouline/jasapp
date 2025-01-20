@@ -33,6 +33,7 @@ class STX0002(BaseRule):
                     "line": instr["line"],
                     "message": f"'{instr['arguments']}' uses the 'latest' tag. Specify a fixed version instead.",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
         return errors
 

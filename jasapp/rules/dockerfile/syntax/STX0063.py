@@ -40,6 +40,7 @@ class STX0063(BaseRule):
                     "line": instr["line"],
                     "message": "`USER` instruction used before `WORKDIR`, `COPY`, or `ADD` within the same stage",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
 
         return errors

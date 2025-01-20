@@ -36,6 +36,7 @@ class SEC0011(BaseRule):
                         "line": instr["line"],
                         "message": "Insecure file permissions set with `chmod` in `RUN` instruction. Avoid permissions like 777.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

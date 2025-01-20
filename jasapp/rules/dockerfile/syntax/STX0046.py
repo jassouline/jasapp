@@ -39,6 +39,7 @@ class STX0046(BaseRule):
                             "line": instr["line"],
                             "message": f"Label '{key}' is empty.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

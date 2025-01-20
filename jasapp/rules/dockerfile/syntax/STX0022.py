@@ -48,6 +48,7 @@ class STX0022(BaseRule):
                         "line": instr["line"],
                         "message": "`COPY --from` cannot reference its own `FROM` alias.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

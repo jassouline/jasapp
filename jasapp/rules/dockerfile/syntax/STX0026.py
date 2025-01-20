@@ -37,6 +37,7 @@ class STX0026(BaseRule):
                         "line": instr["line"],
                         "message": "Do not use apt as it is meant to be an end-user tool, use apt-get or apt-cache instead.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

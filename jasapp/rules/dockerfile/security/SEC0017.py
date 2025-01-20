@@ -38,6 +38,7 @@ class SEC0017(BaseRule):
                         "message": "`NODE_TLS_REJECT_UNAUTHORIZED` environment variable is set to `0`, "
                                    "disabling TLS certificate validation for Node.js applications.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

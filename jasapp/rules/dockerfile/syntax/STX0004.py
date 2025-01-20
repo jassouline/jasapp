@@ -35,6 +35,7 @@ class STX0004(BaseRule):
                     "line": instr["line"],
                     "message": "Avoid using 'cd' in RUN instructions. Use WORKDIR to switch directories.",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
         return errors
 

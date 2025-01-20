@@ -36,6 +36,7 @@ class SEC0026(BaseRule):
                         "message": "`yum` is configured to disable SSL verification. "
                                    "Do not set `sslverify=false` in the `yum` configuration.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

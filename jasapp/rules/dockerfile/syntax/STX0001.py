@@ -52,6 +52,7 @@ class STX0001(BaseRule):
                         "line": instr["line"],
                         "message": "WORKDIR must use an absolute path (e.g., '/app' or 'C:\\\\path').",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

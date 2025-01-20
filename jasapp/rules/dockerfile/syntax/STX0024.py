@@ -36,6 +36,7 @@ class STX0024(BaseRule):
                         "line": instr["line"],
                         "message": "Use arguments JSON notation for CMD and ENTRYPOINT arguments.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

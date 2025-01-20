@@ -45,6 +45,7 @@ class PERF0006(BaseRule):
                 "line": self.copy_lines[0],  # Report on the first COPY instruction
                 "message": "Use `COPY --chown` instead of separate `RUN chown`",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

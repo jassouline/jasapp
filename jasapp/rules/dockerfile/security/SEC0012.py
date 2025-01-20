@@ -37,6 +37,7 @@ class SEC0012(BaseRule):
                         "line": instr["line"],
                         "message": "Potentially dangerous shell command used in `RUN` instruction",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

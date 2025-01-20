@@ -38,6 +38,7 @@ class SEC0004(BaseRule):
                         "message": "Do not use `update` instructions alone in the Dockerfile. "
                                    "Combine `update` with `install` in a single `RUN` instruction to avoid caching issues.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

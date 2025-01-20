@@ -50,6 +50,7 @@ class STX0005(BaseRule):
                         "line": instr["line"],
                         "message": f"Image '{image}' is not tagged. Always tag the version explicitly (e.g., 'image:tag').",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

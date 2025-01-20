@@ -45,6 +45,7 @@ class STX0041(BaseRule):
                                 "line": instr["line"],
                                 "message": message,
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
                         newly_defined_vars.append(var_name)
                     else:
@@ -54,6 +55,7 @@ class STX0041(BaseRule):
                                 "line": instr["line"],
                                 "message": f"Do not refer to an environment variable '{pair}' within the same `ENV` statement where it is defined.",
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
                         newly_defined_vars.append(pair)
 

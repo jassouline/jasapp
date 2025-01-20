@@ -42,6 +42,7 @@ class PERF0004(BaseRule):
                         "line": self.first_line,
                         "message": "Multiple consecutive `RUN` instructions. Consider consolidation.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 self.consecutive_runs = 0
                 self.first_line = None
@@ -52,6 +53,7 @@ class PERF0004(BaseRule):
                 "line": self.first_line,
                 "message": "Multiple consecutive `RUN` instructions. Consider consolidation.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

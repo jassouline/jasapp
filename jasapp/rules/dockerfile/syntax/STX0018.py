@@ -14,8 +14,7 @@ class STX0018(BaseRule):
             hadolint="DL3019",
             name="STX0018",
             description=(
-                "Use the `--no-cache` switch to avoid the need to use `--update` "
-                "and remove `/var/cache/apk/*` when done installing packages."
+                "Use the `--no-cache` switch to avoid the need to use `--update` and remove `/var/cache/apk/*` when done installing packages."
             ),
             severity="info",
         )
@@ -43,6 +42,7 @@ class STX0018(BaseRule):
                                 "and remove `/var/cache/apk/*` when done installing packages."
                             ),
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

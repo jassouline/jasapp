@@ -43,12 +43,14 @@ class SEC0003(BaseRule):
                         "line": instr["line"],
                         "message": "HEALTHCHECK must not be set to NONE. Expected format: HEALTHCHECK [OPTIONS] CMD command",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 elif not match:
                     errors.append({
                         "line": instr["line"],
                         "message": f"Invalid HEALTHCHECK syntax: {instr['arguments']}. Expected format: HEALTHCHECK [OPTIONS] CMD command",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         if not has_healthcheck:
@@ -56,6 +58,7 @@ class SEC0003(BaseRule):
                 "line": 0,
                 "message": "Add a HEALTHCHECK dockerfile instruction to perform the health check on running containers.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
         return errors
 

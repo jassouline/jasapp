@@ -76,6 +76,7 @@ class STX0044(BaseRule):
                         "line": 1,  # You may need to adjust this based on your parsing logic
                         "message": f"Stage '{stage}' is missing required label '{required_label}'.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

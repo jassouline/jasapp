@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: jasapp
-Version: 0.1.1
+Version: 0.1.2
 Summary: A tool for linting Dockerfiles & Kubernetes manifests with scoring capabilities.
 Home-page: https://gitlab.com/jassouline/jasapp
 Author: Jordan Assouline
@@ -13,8 +13,9 @@ Description-Content-Type: text/markdown
 
 # Jasapp - Linter for Dockerfiles and Kubernetes Manifests
 
+<img src="jasapp/doc/logo.png" alt="Jasapp Logo" width="250">
+
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-![Jasapp Logo](jasapp/doc/logo.png)
 
 Jasapp is a static analysis tool (linter) for configuration files, specifically **Dockerfiles** and **Kubernetes manifests**. It helps identify syntax errors, best practice violations, potential security vulnerabilities, and performance issues. Jasapp is inspired by [Hadolint](https://github.com/hadolint/hadolint) and provides a set of equivalent rules, but written in Python. It also provides a scoring system to assess the overall quality of the analyzed files.
 
@@ -72,7 +73,7 @@ Jasapp is a static analysis tool (linter) for configuration files, specifically 
     pip install -r requirements.txt .
     ```
 
-### Installation from PyPI (coming soon)
+### Installation from PyPI
 
 ```bash
 pip install jasapp

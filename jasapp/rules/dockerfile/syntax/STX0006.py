@@ -44,6 +44,7 @@ class STX0006(BaseRule):
                         "line": instr["line"],
                         "message": "Using 'latest' is prone to errors if the image updates. Pin the version explicitly to a release tag.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

@@ -40,6 +40,7 @@ class Linter:
                         "rule": rule.name,
                         "message": error["message"],
                         "severity": error["severity"],
+                        "doc_link": error["doc_link"],
                         **({"line": error["line"]} if "line" in error else {"resource": error["resource"]}),
                     })
             except Exception as e:

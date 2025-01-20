@@ -38,6 +38,7 @@ class STX0030(BaseRule):
                         "line": instr["line"],
                         "message": "`yum clean all` missing after `yum install` command.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

@@ -44,6 +44,7 @@ class STX0052(BaseRule):
                         "line": instr["line"],
                         "message": "`yarn cache clean` missing after `yarn install` was run.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                     has_yarn_install = False  # Reset on error found
 

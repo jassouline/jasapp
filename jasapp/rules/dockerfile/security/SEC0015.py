@@ -37,6 +37,7 @@ class SEC0015(BaseRule):
                                    "which can disable certificate validation. "
                                    "Ensure that the trusted hosts are correctly configured and necessary.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

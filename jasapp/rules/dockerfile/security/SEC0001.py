@@ -53,6 +53,7 @@ class SEC0001(BaseRule):
                         "line": last_user_line,
                         "message": "The last USER in the previous stage is 'root'. Avoid using root as the final user.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 in_stage = True
                 last_user_line = None
@@ -70,6 +71,7 @@ class SEC0001(BaseRule):
                 "line": last_user_line,
                 "message": "The last USER in the stage is 'root'. Avoid using root as the final user.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

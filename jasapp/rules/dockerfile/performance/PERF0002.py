@@ -41,6 +41,7 @@ class PERF0002(BaseRule):
                             "message": "Avoid use of wget without progress bar. Use `wget --progress=dot:giga <url>`.\n"
                                        "Or consider using `-q` or `-nv` (shorthands for `--quiet` or `--no-verbose`).",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

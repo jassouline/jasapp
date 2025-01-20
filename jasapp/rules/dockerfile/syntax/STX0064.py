@@ -37,6 +37,7 @@ class STX0064(BaseRule):
                     "line": instr["line"],
                     "message": "`RUN` instruction after `CMD` or `ENTRYPOINT`",
                     "severity": self.severity,
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
             elif instr["instruction"] == "FROM":
                 self.cmd_or_entrypoint_found = False

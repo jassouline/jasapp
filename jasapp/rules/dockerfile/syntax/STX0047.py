@@ -42,6 +42,7 @@ class STX0047(BaseRule):
                             "line": instr["line"],
                             "message": f"Label '{key}' has an invalid URL value: '{value}'.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

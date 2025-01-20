@@ -36,6 +36,7 @@ class SEC0020(BaseRule):
                         "message": "`yum` is configured to skip GPG signature checks. "
                                    "Use `gpgcheck=1` in the `yum` configuration or remove `--nogpgcheck` from commands.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

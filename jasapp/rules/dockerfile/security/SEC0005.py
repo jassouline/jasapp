@@ -50,6 +50,7 @@ class SEC0005(BaseRule):
                                 "line": instr["line"],
                                 "message": f"Avoid mounting sensitive directory '{destination_path}' in a volume.",
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
         return errors

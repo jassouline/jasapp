@@ -66,6 +66,7 @@ class STX0049(BaseRule):
                             "line": instr["line"],
                             "message": f"Label '{key}' has an invalid SPDX license identifier value: '{value}'.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

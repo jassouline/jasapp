@@ -36,6 +36,7 @@ class SEC0019(BaseRule):
                         "message": "`apt` or `apt-get` is configured to allow unauthenticated packages. "
                                    "Use `--allow-unauthenticated` only if necessary and with caution.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

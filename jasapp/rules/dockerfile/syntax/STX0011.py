@@ -54,6 +54,7 @@ class STX0011(BaseRule):
                                 "line": instr["line"],
                                 "message": f"Invalid port range '{port}'. Ports must be within 0 to 65535.",
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
                     else:
                         if not self.is_valid_port(int(port)):
@@ -61,6 +62,7 @@ class STX0011(BaseRule):
                                 "line": instr["line"],
                                 "message": f"Invalid port '{port}'. Ports must be within 0 to 65535.",
                                 "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
         return errors

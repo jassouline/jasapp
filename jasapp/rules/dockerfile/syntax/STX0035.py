@@ -84,6 +84,7 @@ class STX0035(BaseRule):
                             "line": line,
                             "message": "Non-interactive switch missing from `zypper` command: `zypper --non-interactive install <package>`",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                     if any(word.startswith("module") for word in current_part):
@@ -119,6 +120,7 @@ class STX0035(BaseRule):
                             "line": line,
                             "message": "Non-interactive switch missing from `zypper` command: `zypper --non-interactive install <package>`",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                     if any(word.startswith("module") for word in current_part):
@@ -144,6 +146,7 @@ class STX0035(BaseRule):
                 "line": line,
                 "message": f"Specify version with `zypper install -y {package}=<version>`.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         for module in modules:
@@ -151,6 +154,7 @@ class STX0035(BaseRule):
                 "line": line,
                 "message": f"Specify version with `zypper module install -y {module}:<version>`.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

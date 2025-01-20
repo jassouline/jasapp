@@ -36,6 +36,7 @@ class SEC0027(BaseRule):
                         "message": "`pip` command in `RUN` instruction is using `--trusted-host` option. "
                                    "Review if the trusted hosts are legitimate and necessary.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

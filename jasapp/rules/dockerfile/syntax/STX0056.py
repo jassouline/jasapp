@@ -14,10 +14,7 @@ class STX0056(BaseRule):
             friendly_name="OnlyOneEntrypoint",
             hadolint="DL4004",
             name="STX0056",
-            description="""
-            Multiple `ENTRYPOINT` instructions found.
-            If you list more than one `ENTRYPOINT` then only the last `ENTRYPOINT` will take effect.
-            """,
+            description="Multiple `ENTRYPOINT` instructions found. If you list more than one `ENTRYPOINT` then only the last `ENTRYPOINT` will take effect.",
             severity="error",
         )
         self.entrypoint_count = 0
@@ -45,6 +42,7 @@ class STX0056(BaseRule):
                         "line": instr["line"],
                         "message": "Multiple `ENTRYPOINT` instructions found. Only the last `ENTRYPOINT` will take effect.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 else:
                     self.entrypoint_count = 1

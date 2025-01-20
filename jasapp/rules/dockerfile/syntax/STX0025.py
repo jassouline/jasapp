@@ -47,6 +47,7 @@ class STX0025(BaseRule):
                         "line": instr["line"],
                         "message": "Use only an allowed registry in the FROM image",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

@@ -79,6 +79,7 @@ class STX0031(BaseRule):
                           "line": line,
                           "message": "Use the -y switch to avoid manual input `yum install -y <package>`",
                           "severity": self.severity,
+                          "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                     if any(word.startswith("module") for word in current_part):
@@ -110,6 +111,7 @@ class STX0031(BaseRule):
                             "line": line,
                             "message": "Use the -y switch to avoid manual input `yum install -y <package>`",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                     if any(word.startswith("module") for word in current_part):
@@ -135,6 +137,7 @@ class STX0031(BaseRule):
                 "line": line,
                 "message": f"Specify version with `yum install -y {package}-<version>`.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         for module in modules:
@@ -142,6 +145,7 @@ class STX0031(BaseRule):
                 "line": line,
                 "message": f"Specify version with `yum module install -y {module}:<version>`.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

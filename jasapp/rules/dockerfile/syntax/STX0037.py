@@ -38,6 +38,7 @@ class STX0037(BaseRule):
                         "line": instr["line"],
                         "message": "`dnf clean all` or `rm -rf /var/cache/yum/*` missing after `dnf install` command.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

@@ -47,6 +47,7 @@ class STX0003(BaseRule):
                             "line": instr["line"],
                             "message": f"Command `{command}` is not recommended in Docker containers.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

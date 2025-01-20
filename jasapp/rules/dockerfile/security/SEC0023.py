@@ -36,6 +36,7 @@ class SEC0023(BaseRule):
                         "line": instr["line"],
                         "message": "`npm config set strict-ssl false` is used, which disables strict SSL verification.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

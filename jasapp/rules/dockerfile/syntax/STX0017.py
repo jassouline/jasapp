@@ -14,8 +14,7 @@ class STX0017(BaseRule):
             hadolint="DL3018",
             name="STX0017",
             description=(
-                "Pin versions in apk add. Instead of `apk add <package>` use "
-                "`apk add <package>=<version>`."
+                "Pin versions in apk add. Instead of `apk add <package>` use `apk add <package>=<version>`."
             ),
             severity="warning",
         )
@@ -43,6 +42,7 @@ class STX0017(BaseRule):
                                 "`apk add <package>=<version>`."
                             ),
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

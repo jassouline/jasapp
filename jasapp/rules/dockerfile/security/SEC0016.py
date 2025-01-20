@@ -37,6 +37,7 @@ class SEC0016(BaseRule):
                         "message": "`PYTHONHTTPSVERIFY` environment variable is set to `0`, "
                                    "disabling HTTPS certificate verification.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

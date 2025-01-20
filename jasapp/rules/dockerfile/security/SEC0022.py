@@ -35,6 +35,7 @@ class SEC0022(BaseRule):
                         "line": instr["line"],
                         "message": "`apt-get install` is used without `-y` or with `--force-yes` or `--allow-unauthenticated`, which can bypass prompts and verifications.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

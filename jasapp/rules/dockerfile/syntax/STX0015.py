@@ -39,10 +39,10 @@ class STX0015(BaseRule):
                         errors.append({
                             "line": instr["line"],
                             "message": (
-                                "Avoid additional packages by specifying `--no-install-recommends` "
-                                "in `apt-get install` commands."
+                                "Avoid additional packages by specifying `--no-install-recommends` in `apt-get install` commands."
                             ),
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

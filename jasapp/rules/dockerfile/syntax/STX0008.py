@@ -51,6 +51,7 @@ class STX0008(BaseRule):
                 "line": last_install_line,
                 "message": "Delete the apt-get lists after installing something (e.g., `rm -rf /var/lib/apt/lists/*`).",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

@@ -43,6 +43,7 @@ class STX0013(BaseRule):
                                 "`pip install <package>==<version>` or `pip install --requirement <requirements file>`."
                             ),
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

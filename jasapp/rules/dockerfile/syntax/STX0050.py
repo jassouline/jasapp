@@ -63,6 +63,7 @@ class STX0050(BaseRule):
                             "line": instr["line"],
                             "message": f"Label '{key}' has an invalid Git hash value: '{value}'.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

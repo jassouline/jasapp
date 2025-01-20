@@ -40,8 +40,8 @@ class SEC0029(BaseRule):
                 "line": 0,  # Report the error on line 0 (general error, not specific to a line)
                 "message": "No `USER` instruction found in the Dockerfile. Consider adding a non-root user.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
-
         return errors
 
 

@@ -36,18 +36,21 @@ class STX0040(BaseRule):
                         "line": instr["line"],
                         "message": "`ONBUILD` triggered from within `ONBUILD` instruction.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 elif instr["arguments"].startswith("FROM"):
                     errors.append({
                         "line": instr["line"],
                         "message": "`FROM` triggered from within `ONBUILD` instruction.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 elif instr["arguments"].startswith("MAINTAINER"):
                     errors.append({
                         "line": instr["line"],
                         "message": "`MAINTAINER` triggered from within `ONBUILD` instruction.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
         return errors
 

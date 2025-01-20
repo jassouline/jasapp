@@ -38,6 +38,7 @@ class STX0028(BaseRule):
                         "line": instr["line"],
                         "message": "Do not use --platform flag with FROM, unless it's a variable like BUILDPLATFORM or TARGETPLATFORM",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

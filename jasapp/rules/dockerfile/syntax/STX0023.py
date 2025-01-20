@@ -40,6 +40,7 @@ class STX0023(BaseRule):
                             "line": instr["line"],
                             "message": "FROM aliases (stage names) must be unique.",
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
                     else:
                         from_aliases.add(alias)

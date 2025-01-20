@@ -38,6 +38,7 @@ class STX0034(BaseRule):
                         "line": instr["line"],
                         "message": "`zypper clean` missing after `zypper install` or `zypper in` command.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

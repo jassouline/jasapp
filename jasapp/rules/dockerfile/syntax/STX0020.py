@@ -36,6 +36,7 @@ class STX0020(BaseRule):
                         "line": instr["line"],
                         "message": "COPY with more than 2 arguments requires the last argument to end with '/'.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
         return errors
 

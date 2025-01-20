@@ -117,6 +117,7 @@ class STX0038(BaseRule):
                 "line": line,
                 "message": f"Specify version with `dnf install -y {package}-<version>` or `microdnf install -y {package}-<version>`.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         for module in modules:
@@ -124,6 +125,7 @@ class STX0038(BaseRule):
                 "line": line,
                 "message": f"Specify version with `dnf module install -y {module}:<version>` or `microdnf module install -y {module}:<version>`.",
                 "severity": self.severity,
+                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
             })
 
         return errors

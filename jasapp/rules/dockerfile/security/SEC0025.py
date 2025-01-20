@@ -37,6 +37,7 @@ class SEC0025(BaseRule):
                         "message": "`git` is configured to disable SSL verification. "
                                    "Do not use `git config --global http.sslVerify false`.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

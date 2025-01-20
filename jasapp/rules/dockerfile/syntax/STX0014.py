@@ -40,6 +40,7 @@ class STX0014(BaseRule):
                                 "Use the `-y` switch to avoid manual input in `apt-get install <package>`."
                             ),
                             "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
         return errors
 

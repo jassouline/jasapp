@@ -42,6 +42,7 @@ class STX0055(BaseRule):
                         "line": instr["line"],
                         "message": "Multiple `CMD` instructions found. Only the last `CMD` will take effect.",
                         "severity": self.severity,
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
                 else:
                     self.cmd_count = 1
