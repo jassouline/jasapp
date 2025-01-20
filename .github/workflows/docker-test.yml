@@ -13,7 +13,7 @@ jobs:
   docker-test:
     runs-on: ubuntu-latest
     env:
-      TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.sha }}
+      TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.ref_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

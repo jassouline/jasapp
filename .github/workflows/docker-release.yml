@@ -9,7 +9,7 @@ jobs:
   docker-release:
     runs-on: ubuntu-latest
     env:
-      TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.sha }}
+      TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.ref_name }}
       RELEASE_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:latest
     steps:
       - name: Checkout code
