@@ -10,6 +10,7 @@ on:
 
 jobs:
   docker-build:
+    needs: [docker-lint]
     runs-on: ubuntu-latest
     env:
       TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.ref_name }}

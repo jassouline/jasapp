@@ -11,6 +11,7 @@ on:
 
 jobs:
   docker-test:
+    needs: [docker-build]
     runs-on: ubuntu-latest
     env:
       TEST_IMAGE: ${{ secrets.DOCKER_HUB_REGISTRY_USER }}/jasapp:${{ github.ref_name }}
