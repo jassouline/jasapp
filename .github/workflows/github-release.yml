@@ -27,8 +27,7 @@ jobs:
 
       - name: Get release version from setup.py
         id: get_version
-        run: |
-          echo "version=$(python -c "import setuptools; print(setuptools.setup().version)" --dist-dir=dist)" >> $GITHUB_OUTPUT
+        run: echo "version=$(python -c "import setuptools; print(setuptools.setup().version)" --dist-dir=dist)" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
@@ -42,7 +41,7 @@ jobs:
           prerelease: false
 
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v2
+        uses: actions/upload-release-asset@v1 # Correction ici: utilise v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -52,7 +51,7 @@ jobs:
           asset_content_type: application/gzip
 
       - name: Upload Wheel Release Asset
-        uses: actions/upload-release-asset@v2
+        uses: actions/upload-release-asset@v1 # Correction ici: utilise v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
