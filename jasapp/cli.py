@@ -83,6 +83,9 @@ def main():
     except FileNotFoundError as e:
         print(f"Error: {e}")
         sys.exit(1)  # Exit with code 1 on file not found
+    except ValueError as e:
+        print(f"Syntax Error: {e}")
+        sys.exit(1)
     except Exception as e:
         print(f"Unexpected error while parsing: {e}")
         sys.exit(1)

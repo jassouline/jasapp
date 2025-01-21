@@ -150,3 +150,29 @@ jobs:
 
       - name: Push release image
         run: docker push ${{ env.RELEASE_IMAGE }}
+
+  pypi-publish:
+    needs: [docker-release]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # S'exécute uniquement sur la branche main
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build package
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
