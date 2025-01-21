@@ -69,7 +69,7 @@ pip install jasapp
 ### Using with Docker
 
 ```bash
-docker run --rm jassouline/jasapp --type dockerfile --score path_to_your_dockerfile
+docker run --rm jassouline/jasapp --type dockerfile --score - < path_to_your_dockerfile
 ```
 
 ## Usage

@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.3] - 2025-01-21
+### Added
+- Add the capability to run directly from stdin a scan
+
+
 ## [0.1.2] - 2025-01-20
 ### Fixed
 - Error in github actions refering to the sha instead of the branch name

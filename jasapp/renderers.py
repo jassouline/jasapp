@@ -25,22 +25,22 @@ class ConsoleRenderer:
             print(f"\nLinting errors found: {error_count} ERROR(S), {warning_count} WARNING(S), {style_count} STYLE(S), {info_count} INFO(S)\n")
 
             if error_count > 0:
-                print("ERRORS:")
+                print("\nERRORS:")
                 for index, error in enumerate([e for e in errors if e["severity"] == "error"]):
                     print(self.format_error(error, index))
 
             if warning_count > 0:
-                print("WARNINGS:")
+                print("\nWARNINGS:")
                 for index, error in enumerate([e for e in errors if e["severity"] == "warning"]):
                     print(self.format_error(error, index))
 
             if info_count > 0:
-                print("INFO:")
+                print("\nINFO:")
                 for index, error in enumerate([e for e in errors if e["severity"] == "info"]):
                     print(self.format_error(error, index))
 
             if style_count > 0:
-                print("STYLE:")
+                print("\nSTYLE:")
                 for index, error in enumerate([e for e in errors if e["severity"] == "style"]):
                     print(self.format_error(error, index))
         else:
