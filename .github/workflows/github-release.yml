@@ -27,7 +27,10 @@ jobs:
 
       - name: Get release version from setup.py
         id: get_version
-        run: echo "version=$(python -c "import setuptools; print(setuptools.setup().version)" --dist-dir=dist)" >> $GITHUB_OUTPUT
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools build wheel
+          echo "version=$(python -c "import setuptools; print(setuptools.setup().version)" --dist-dir=dist)" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
