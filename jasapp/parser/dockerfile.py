@@ -16,8 +16,6 @@ class DockerfileParser:
         """
         self.file_path = file_path
 
-    
-
     def parse(self):
         """
         Parses the Dockerfile and returns a list of instructions.
