@@ -6,6 +6,7 @@
 
 Jasapp is a static analysis tool (linter) for configuration files, specifically **Dockerfiles** and **Kubernetes manifests**. It helps identify syntax errors, best practice violations, potential security vulnerabilities, and performance issues. Jasapp is inspired by [Hadolint](https://github.com/hadolint/hadolint) and provides a set of equivalent rules, but written in Python. It also provides a scoring system to assess the overall quality of the analyzed files.
 
+<img src="jasapp/doc/demo.gif" alt="Jasapp demo">
 ## Features
 
 -   **Dockerfile Analysis:** Jasapp analyzes Dockerfiles and reports errors and warnings based on a set of built-in rules. These rules cover:
@@ -69,7 +70,7 @@ pip install jasapp
 ### Using with Docker
 
 ```bash
-docker run --rm jassouline/jasapp --type dockerfile --score - < path_to_your_dockerfile
+docker run --rm -i jassouline/jasapp --type dockerfile --score - < path_to_your_dockerfile
 ```
 
 ## Usage
