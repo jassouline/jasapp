@@ -77,18 +77,22 @@ def main():
     if args.ignore:
         rules = [rule for rule in rules if rule.name not in args.ignore]
 
-    # Parse the file
-    try:
-        instructions = file_parser.parse()
-    except FileNotFoundError as e:
-        print(f"Error: {e}")
-        sys.exit(1)  # Exit with code 1 on file not found
-    except ValueError as e:
-        print(f"Syntax Error: {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"Unexpected error while parsing: {e}")
-        sys.exit(1)
+    # Check if a file is provided or read from stdin
+    if args.file == '-':
+        # Read from stdin
+        content = sys.stdin.read()
+        # Modify the parser to accept content from stdin
+        instructions = file_parser.parse_from_string(content)
+    else:
+        # Parse the file
+        try:
+            instructions = file_parser.parse()
+        except FileNotFoundError as e:
+            print(f"Error: {e}")
+            sys.exit(1)  # Exit with code 1 on file not found
+        except Exception as e:
+            print(f"Unexpected error while parsing: {e}")
+            sys.exit(1)
 
     # Lint the file
     linter = Linter(rules)
