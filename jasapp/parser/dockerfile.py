@@ -16,6 +16,8 @@ class DockerfileParser:
         """
         self.file_path = file_path
 
+    
+
     def parse(self):
         """
         Parses the Dockerfile and returns a list of instructions.
@@ -45,3 +47,41 @@ class DockerfileParser:
         except Exception as e:
             raise Exception(f"An error occurred while parsing the file: {e}")
         return instructions
+
+    def parse_from_string(self, content):
+        """
+        Parses a Dockerfile from a string and returns a list of instructions.
+
+        Args:
+            content (str): The content of the Dockerfile as a string.
+
+        Returns:
+            list: A list of dictionaries, each representing a parsed instruction.
+        """
+        self.instructions = []
+        lines = content.splitlines()
+        for line_number, line in enumerate(lines, start=1):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue  # Ignore empty lines and comments
+
+            parts = line.split(maxsplit=1)
+            instruction = parts[0].upper()
+            arguments = parts[1] if len(parts) > 1 else ""
+
+            # Join continued lines
+            while arguments.endswith("\\"):
+                line_number += 1
+                try:
+                    next_line = lines[line_number - 1].strip()
+                    arguments = arguments[:-1] + " " + next_line  # Replace \ with a space
+                except IndexError:
+                    break
+
+            self.instructions.append({
+                "instruction": instruction,
+                "arguments": arguments,
+                "line": line_number,
+            })
+
+        return self.instructions

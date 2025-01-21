@@ -46,3 +46,26 @@ class KubernetesParser:
         except Exception as e:
             raise Exception(f"An error occurred while parsing the file: {e}")
         return resources
+
+    def parse_from_string(self, content):
+        """
+        Parses a Kubernetes manifest from a string and returns a list of resources.
+
+        Args:
+            content (str): The content of the Kubernetes manifest as a string.
+
+        Returns:
+            list: A list of dictionaries, each containing the resource kind,
+                  metadata (e.g., name, namespace), and spec.
+        """
+        resources = []
+        documents = yaml.safe_load_all(content)
+        for document in documents:
+            if document:
+                resource = {
+                    "kind": document.get("kind", "Unknown"),
+                    "metadata": document.get("metadata", {}),
+                    "spec": document.get("spec", {}),
+                }
+                resources.append(resource)
+        return resources
