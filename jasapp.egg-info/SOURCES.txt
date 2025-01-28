@@ -1,3 +1,4 @@
+LICENSE
 README.md
 pyproject.toml
 setup.py
@@ -15,6 +16,7 @@ jasapp.egg-info/requires.txt
 jasapp.egg-info/top_level.txt
 jasapp/parser/__init__.py
 jasapp/parser/dockerfile.py
+jasapp/parser/exceptions.py
 jasapp/parser/kubernetes.py
 jasapp/rules/__init__.py
 jasapp/rules/base_rule.py

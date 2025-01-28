@@ -36,6 +36,7 @@ class K8S_SEC_0020(BaseRule):
                         "message": f"Tiller (Helm V2) is deployed in Pod '{resource['metadata'].get('name', 'Unknown')}'. Consider upgrading to Helm V3.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

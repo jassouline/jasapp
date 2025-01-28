@@ -42,6 +42,7 @@ class K8S_SEC_0026(BaseRule):
                             "message": f"{resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' is using the default service account. Create a dedicated service account.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
             elif resource["kind"] in ["RoleBinding", "ClusterRoleBinding"]:
@@ -53,6 +54,7 @@ class K8S_SEC_0026(BaseRule):
                             "message": f"{resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' is bound to the default service account.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
             elif resource["kind"] == "ServiceAccount":
                 if resource["metadata"].get("name") == "default":
@@ -64,6 +66,7 @@ class K8S_SEC_0026(BaseRule):
                             "message": "Default service account should have automountServiceAccountToken set to false.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

@@ -46,6 +46,7 @@ class K8S_SEC_0015(BaseRule):
                         "message": f"PodSecurityContext not defined for {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}'.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
                 # Check if securityContext is missing at the container level
@@ -56,6 +57,7 @@ class K8S_SEC_0015(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' does not have a securityContext defined.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

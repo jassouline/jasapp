@@ -46,6 +46,7 @@ class K8S_SEC_0021(BaseRule):
                                 "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' uses secret as environment variable via valueFrom.",
                                 "severity": self.severity,
                                 "kind": resource["kind"],
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
                     # Check for environment variables using secrets with envFrom
@@ -57,6 +58,7 @@ class K8S_SEC_0021(BaseRule):
                                     "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' uses secret as environment variable via envFrom.",
                                     "severity": self.severity,
                                     "kind": resource["kind"],
+                                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                                 })
 
         return errors

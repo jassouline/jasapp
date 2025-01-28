@@ -48,6 +48,7 @@ class K8S_SEC_0014(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' has NET_RAW capability. Consider dropping it.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

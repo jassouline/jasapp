@@ -39,6 +39,7 @@ class K8S_SEC_0028(BaseRule):
                                 "message": f"Tiller deployment is accessible from within the cluster in Deployment '{resource['metadata'].get('name', 'Unknown')}'.",
                                 "severity": self.severity,
                                 "kind": resource["kind"],
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
         return errors

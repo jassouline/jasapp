@@ -35,6 +35,7 @@ class K8S_SEC_0029(BaseRule):
                     "message": f"Tiller (Helm V2) service '{resource['metadata'].get('name', 'Unknown')}' found. It should be deleted.",
                     "severity": self.severity,
                     "kind": resource["kind"],
+                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                 })
 
         return errors

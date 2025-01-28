@@ -45,6 +45,7 @@ class K8S_SEC_0011(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' adds capabilities when no list is authorized",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
                     elif self.allowed_capabilities is not None:
                         for cap in capabilities:
@@ -54,6 +55,7 @@ class K8S_SEC_0011(BaseRule):
                                     "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' adds capability '{cap}' which is not in the allowed list.",
                                     "severity": self.severity,
                                     "kind": resource["kind"],
+                                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                                 })
 
         return errors

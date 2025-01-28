@@ -45,6 +45,7 @@ class K8S_PERF_0003(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' does not have memory limits set.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

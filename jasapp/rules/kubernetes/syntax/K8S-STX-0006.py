@@ -44,6 +44,7 @@ class K8S_STX_0006(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' does not have a liveness probe configured.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

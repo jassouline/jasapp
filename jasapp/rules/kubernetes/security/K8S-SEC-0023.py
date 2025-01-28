@@ -41,6 +41,7 @@ class K8S_SEC_0023(BaseRule):
                         "message": f"{resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' does not set `automountServiceAccountToken` to `false`.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

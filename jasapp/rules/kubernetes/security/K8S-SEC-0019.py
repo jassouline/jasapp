@@ -36,6 +36,7 @@ class K8S_SEC_0019(BaseRule):
                         "message": f"Kubernetes dashboard is deployed in Pod '{resource['metadata'].get('name', 'Unknown')}'.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
         return errors

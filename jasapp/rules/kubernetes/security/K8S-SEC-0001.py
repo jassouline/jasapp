@@ -36,6 +36,7 @@ class K8S_SEC_0001(BaseRule):
                         "message": f"PodSecurityPolicy '{resource['metadata'].get('name', 'Unknown')}' allows sharing the host's PID namespace.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
             elif resource["kind"] in ["Pod", "Deployment", "StatefulSet", "DaemonSet", "Job", "CronJob", "ReplicaSet"]:
                 spec = resource["spec"]
@@ -48,6 +49,7 @@ class K8S_SEC_0001(BaseRule):
                         "message": f"{resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' allows sharing the host's PID namespace.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
                 containers = spec.get("containers", [])
@@ -60,6 +62,7 @@ class K8S_SEC_0001(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' allows sharing the host's PID namespace.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
         return errors

@@ -45,6 +45,7 @@ class K8S_SEC_0012(BaseRule):
                                 "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' is using hostPort.",
                                 "severity": self.severity,
                                 "kind": resource["kind"],
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
 
         return errors

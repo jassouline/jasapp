@@ -51,6 +51,7 @@ class K8S_SEC_0018(BaseRule):
                             "message": f"Container '{container['name']}' in {resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' does not have a valid seccomp profile.",
                             "severity": self.severity,
                             "kind": resource["kind"],
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                 # Only add a Pod-level error if no container has a valid profile
@@ -60,6 +61,7 @@ class K8S_SEC_0018(BaseRule):
                         "message": f"Pod '{resource['metadata'].get('name', 'Unknown')}' in {resource['kind']} does not have a valid seccomp profile.",
                         "severity": self.severity,
                         "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
 
                 errors.extend(container_errors)
