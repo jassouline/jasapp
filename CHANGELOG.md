@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.4.1] - 2025-01-29
+### Fixed
+- Fixed issue 3-false-positive-with-stx0020 (https://github.com/jassouline/jasapp/issues/3)
+
+
 ## [0.1.4] - 2025-01-28
 ### Added
 - Add new github tests for kube
