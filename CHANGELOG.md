@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4] - 2025-01-28
+### Added
+- Add new github tests for kube
+
+### Fixed
+- doc_link field missed on some Kube rules
+
 ## [0.1.3] - 2025-01-21
 ### Added
 - Add the capability to run directly from stdin a scan
