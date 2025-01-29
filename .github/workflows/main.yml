@@ -122,6 +122,9 @@ jobs:
       - name: Run jasapp with score and exit-code for Dockerfile scan
         run: docker run --rm ${{ env.TEST_IMAGE }} --score --type dockerfile --exit-code jasapp/examples/dockerfile/example.good.Dockerfile
 
+      - name: Run jasapp with score and exit-code for Dockerfile scan with a fix issue-03
+        run: docker run --rm ${{ env.TEST_IMAGE }} --score --type dockerfile --exit-code jasapp/examples/dockerfile/fix-issue-3.good.Dockerfile
+
       - name: Run jasapp with score and exit-code for Kubernetes scan
         run: docker run --rm ${{ env.TEST_IMAGE }} --score --type kubernetes --exit-code jasapp/examples/kubernetes/good.kubernetes.yaml
 
