@@ -4,72 +4,103 @@ from jasapp.rules.base_rule import BaseRule
 
 class STX0020(BaseRule):
     """
-    Rule to ensure COPY with more than 2 arguments has the last argument ending with a '/'.
+    Rule to ensure that `COPY` with more than two arguments requires
+    the last argument to end with '/'.
     """
+
     rule_type = "dockerfile"
 
     def __init__(self):
         super().__init__(
-            friendly_name="EnsureCopyEndsWithSlash",
-            hadolint="DL3021",
+            friendly_name="CopyMultipleArgs",
+            hadolint="DL3020",  # Corrected Hadolint rule number
             name="STX0020",
-            description="COPY with more than 2 arguments requires the last argument to end with '/'.",
+            description="COPY with more than 2 arguments requires the last argument to end with '/'",
             severity="error",
         )
 
     def check(self, instructions):
-        """
-        Checks if `COPY` with more than 2 arguments ends with a '/'.
-
-        Args:
-            instructions (list): A list of dictionaries containing parsed Dockerfile instructions.
-
-        Returns:
-            list: A list of errors found, each as a dictionary with line, message, and severity.
-        """
         errors = []
         for instr in instructions:
             if instr["instruction"] == "COPY":
-                args = instr["arguments"].split()
-                if len(args) > 2 and not args[-1].endswith("/"):
+                args = instr["arguments"]
+
+                # Correctly handle options like --from=...
+                arg_list = []
+                parts = args.split()
+                skip_next = False
+                for i, part in enumerate(parts):
+                    if skip_next:
+                        skip_next = False
+                        continue
+                    if part.startswith("--"):
+                        # If it's an option, skip the next part (its value)
+                        skip_next = True
+                        continue  # Skip options
+                    arg_list.append(part)
+
+                if len(arg_list) > 2 and not arg_list[-1].endswith("/"):
                     errors.append({
                         "line": instr["line"],
-                        "message": "COPY with more than 2 arguments requires the last argument to end with '/'.",
+                        "message": "COPY with more than 2 arguments requires the last argument to end with '/'",
                         "severity": self.severity,
                         "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                     })
+
         return errors
 
 
 @pytest.fixture
-def ensure_copy_ends_with_slash():
+def copy_multiple_args():
     return STX0020()
 
 
-def test_ensure_copy_ends_with_slash_detects_missing_slash(ensure_copy_ends_with_slash):
+def test_copy_multiple_args_detects_missing_slash(copy_multiple_args):
     parsed_content = [
-        {"line": 1, "instruction": "COPY", "arguments": "file1.txt file2.txt /app"},
-        {"line": 2, "instruction": "COPY", "arguments": "file1.txt file2.txt /path/to/destination"},
+        {"line": 1, "instruction": "COPY", "arguments": "src1 src2 dest"},
     ]
-    errors = ensure_copy_ends_with_slash.check(parsed_content)
-    assert len(errors) == 2
-    assert errors[0]["message"] == "COPY with more than 2 arguments requires the last argument to end with '/'."
+    errors = copy_multiple_args.check(parsed_content)
+    assert len(errors) == 1
+    assert errors[0]["message"] == "COPY with more than 2 arguments requires the last argument to end with '/'"
     assert errors[0]["line"] == 1
-    assert errors[1]["line"] == 2
 
 
-def test_ensure_copy_ends_with_slash_allows_correct_usage(ensure_copy_ends_with_slash):
+def test_copy_multiple_args_allows_trailing_slash(copy_multiple_args):
     parsed_content = [
-        {"line": 3, "instruction": "COPY", "arguments": "file1.txt file2.txt /app/"},
-        {"line": 4, "instruction": "COPY", "arguments": "file1.txt /app/"},
+        {"line": 1, "instruction": "COPY", "arguments": "src1 src2 dest/"},
     ]
-    errors = ensure_copy_ends_with_slash.check(parsed_content)
+    errors = copy_multiple_args.check(parsed_content)
     assert len(errors) == 0
 
 
-def test_ensure_copy_ends_with_slash_ignores_single_argument(ensure_copy_ends_with_slash):
+def test_copy_multiple_args_allows_two_args(copy_multiple_args):
     parsed_content = [
-        {"line": 5, "instruction": "COPY", "arguments": "file1.txt /app"},
+        {"line": 1, "instruction": "COPY", "arguments": "src dest"},
     ]
-    errors = ensure_copy_ends_with_slash.check(parsed_content)
+    errors = copy_multiple_args.check(parsed_content)
     assert len(errors) == 0
+
+
+def test_copy_multiple_args_ignores_other_instructions(copy_multiple_args):
+    parsed_content = [
+        {"line": 1, "instruction": "FROM", "arguments": "ubuntu:latest"},
+    ]
+    errors = copy_multiple_args.check(parsed_content)
+    assert len(errors) == 0
+
+
+def test_copy_multiple_args_with_options(copy_multiple_args):
+    parsed_content = [
+        {"line": 1, "instruction": "COPY", "arguments": "--from=previous /test.txt /root/test.txt"},
+    ]
+    errors = copy_multiple_args.check(parsed_content)
+    assert len(errors) == 0
+
+
+def test_copy_multiple_args_with_quotes(copy_multiple_args):
+    parsed_content = [
+        {"line": 1, "instruction": "COPY", "arguments": "\"src 1\" 'src 2' dest"},
+    ]
+    errors = copy_multiple_args.check(parsed_content)
+    assert len(errors) == 1
+    assert errors[0]["line"] == 1
