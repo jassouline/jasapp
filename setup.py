@@ -20,7 +20,8 @@ setup(
         "requests==2.28.2",
         "pytest==8.3.4",
         "flake8==7.1.1",
-        "email-validator==2.2.0"
+        "email-validator==2.2.0",
+        "google-generativeai==0.8.4"
         ],
     entry_points={
         "console_scripts": [

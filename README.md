@@ -31,6 +31,24 @@ Jasapp is a static analysis tool (linter) for configuration files, specifically 
     -   `sonarqube`
     -   `sarif`
 -   **Configurable Exit Code:** The `--exit-code` option allows setting the exit code to 1 if errors with severity `warning` or `error` are detected.
+-   **AI-Powered Fix Suggestions (Gemini):** Use the `--gemini` option, along with a valid Google Gemini API key, to get suggested fixes for detected issues.  You can get more detailed explanations using `--gemini-detailed`.
+
+## Gemini integration
+Jasapp can use the Google Gemini API to generate fix for the detected issues into Dockerfile and Kubernetes files. If you wanna use this feature :
+1. **Get a free Gemini API Key** : https://aistudio.google.com/apikey
+2. **Use the `--gemini` option** : 
+
+```bash
+jasapp examples/dockerfile/example.Dockerfile --type dockerfile --gemini YOUR_API_KEY
+```
+
+3. **Use the `--gemini-detailed` option** to have more detailed and explantions about the fixes :
+
+```bash
+jasapp examples/dockerfile/example.bad.Dockerfile --type dockerfile --gemini YOUR_API_KEY --gemini-detailed
+```
+
+*Fix and suggestions will be shown after the linting errors.*
 
 ## Installation
 
@@ -93,6 +111,8 @@ jasapp <file> --type <type> [options]
 - `--format <format>` : specified the output format for errors (default : `console`). Available formats are : `console`, `json`, `checkstyle`, `codeclimate`, `gitlab_codeclimate`, `gnu`, `codacy`, `sonarqube`, `sarif`
 - `--exit-code` : returns an exit code of 1 if errors with severity `warning` or `error` area detected, 0 otherwise.
 - `--version` : displays the current version of `jasapp`
+- `--gemini <API_KEY>`: Uses the Google Gemini API to suggest fixes (provide your Gemini API key).
+- `--gemini-detailed`: Provides more detailed explanations with the Gemini-suggested fixes (requires --gemini).
 
 ### Examples:
 
@@ -118,6 +138,16 @@ jasapp examples/dockerfile/example.Dockerfile --type dockerfile --ignore STX0001
 
 ```bash
 jasapp examples/dockerfile/example.Dockerfile --type dockerfile --exit-code
+```
+
+- Get suggested fixes using Gemini:
+
+```bash
+jasapp examples/dockerfile/example.Dockerfile --type dockerfile --gemini YOUR_API_KEY
+```
+
+```bash
+jasapp examples/dockerfile/example.bad.Dockerfile --type dockerfile --gemini YOUR_API_KEY --gemini-detailed
 ```
 
 ## Dockerfile 

@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.0] - 2025-02-17
+### Added
+- Gemini integration with jasapp to show live correction with detailed or not detailed output through gemini_integration.py file
+- Update README.md
+
 ## [0.1.4.1] - 2025-01-29
 ### Fixed
 - Fixed issue 3-false-positive-with-stx0020 (https://github.com/jassouline/jasapp/issues/3)

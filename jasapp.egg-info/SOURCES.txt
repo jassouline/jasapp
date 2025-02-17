@@ -4,6 +4,7 @@ pyproject.toml
 setup.py
 jasapp/__init__.py
 jasapp/cli.py
+jasapp/gemini_integration.py
 jasapp/linter.py
 jasapp/renderers.py
 jasapp/scorer.py

@@ -16,6 +16,8 @@ from jasapp.renderers import (
     SonarQubeRenderer,
     SARIFRenderer)
 
+from jasapp.gemini_integration import generate_corrected_code
+
 # Importer la version depuis __init__.py
 from jasapp import __version__
 
@@ -58,6 +60,16 @@ def main():
         "--version",
         action="version",
         version=f"Jasapp version {__version__}"
+    )
+    parser.add_argument(
+        "--gemini",
+        metavar="API_KEY",
+        help="Use Gemini to suggest fixes. Provide your Gemini API key."
+    )
+    parser.add_argument(
+        "--gemini-detailed",
+        action="store_true",
+        help="Use Gemini to suggest fixes with detailed explanations (requires --gemini).",
     )
 
     args = parser.parse_args()
@@ -127,6 +139,28 @@ def main():
         scorer = Scorer()
         score = scorer.calculate(errors, len(rules))
         print(f"\nFile Quality Score: {score}/100")
+
+        # Gemini integration
+        if args.gemini:
+            # Read the file content
+            try:
+                with open(args.file, 'r') as f:
+                    file_content = f.read()
+            except FileNotFoundError as e:
+                print(f"Error: {e}")
+                sys.exit(1)
+            except Exception as e:
+                print(f"Unexpected error while reading file: {e}")
+                sys.exit(1)
+
+            # Call the Gemini API function
+            corrected_code = generate_corrected_code(args.type, file_content, errors, args.gemini, args.gemini_detailed)
+
+            if corrected_code:
+                print("\n--- Gemini Suggested Fixes ---")
+                print(corrected_code)
+            else:
+                print("\n--- Gemini could not generate corrections. ---")
 
     # Set the exit code based on errors and --exit-code flag
     if args.exit_code and any(error["severity"] in ["warning", "error"] for error in errors):
