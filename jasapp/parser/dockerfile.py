@@ -1,5 +1,7 @@
 import re
+import os
 from typing import List, Dict, Tuple, Any
+
 
 class DockerfileParser:
     def __init__(self, dockerfile_path: str = None):
@@ -37,7 +39,6 @@ class DockerfileParser:
             var_name = match.group(1) or match.group(2)  # Get either $VAR or ${VAR}
             return combined_vars.get(var_name, f"${{{var_name}}}")  # Keep ${VAR} if not found
 
-
         # Regex to find variables (both $VAR and ${VAR} forms)
         substituted_value = re.sub(r'\$(?:(\w+)|\{([\w\.]+)\})', replace, escaped_value)
 
@@ -51,33 +52,31 @@ class DockerfileParser:
         if instruction == "FROM":
             # Reset ARG vars for each stage (FROM resets ARG)
             self.arg_vars = {}
-            arguments = self._replace_variables(arguments) # Important de remplacer les variables AVANT d'ajouter l'instruction
+            arguments = self._replace_variables(arguments)  # Important de remplacer les variables AVANT d'ajouter l'instruction
             self.instructions.append({"line": line_num, "instruction": instruction, "arguments": arguments})
 
         elif instruction == "ENV":
-             # ENV can have multiple "key=value" pairs, or a single "key=value"
+            # ENV can have multiple "key=value" pairs, or a single "key=value"
             parts = re.split(r"\s+", arguments)
-            if '=' in arguments and len(parts) == 1: #Single key=value
+            if '=' in arguments and len(parts) == 1:  # Single key=value
                 key, value = arguments.split("=", 1)
                 key = key.strip()
                 value = value.strip()
                 self.env_vars[key] = self._replace_variables(value)  # replace variables *before* storing
-            else: #Multiple key value
+            else:  # Multiple key value
                 for part in parts:
                     if "=" in part:
                         key, value = part.split("=", 1)
                         self.env_vars[key.strip()] = self._replace_variables(value.strip())
-
 
         elif instruction == "ARG":
             # ARG can define a default value (ARG VAR=default) or not (ARG VAR)
             parts = arguments.split("=", 1)
             var_name = parts[0].strip()
             default_value = parts[1].strip() if len(parts) > 1 else ""
-             # If the ARG variable has a default value, or if it's already defined in the environment, store it
+            # If the ARG variable has a default value, or if it's already defined in the environment, store it
             if default_value or var_name in os.environ:
                 self.arg_vars[var_name] = self._replace_variables(default_value or os.environ[var_name])
-
 
         else:
             # For other instructions, replace variables in the arguments *before* storing
@@ -89,7 +88,7 @@ class DockerfileParser:
         self.instructions = []
         self.env_vars = {}  # Reset ENV and ARG vars
         self.arg_vars = {}
-        if not self.dockerfile_path: #Important
+        if not self.dockerfile_path:  # Important
             return []
         try:
             with open(self.dockerfile_path, "r") as f:
