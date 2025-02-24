@@ -27,10 +27,10 @@ class STX0047(BaseRule):
         i = 0
         while i < len(instructions) - 1:
             if instructions[i]["instruction"] == "LABEL" and instructions[i]["arguments"].endswith("\\"):
-                instructions[i]["arguments"] = instructions[i]["arguments"][:-1] + " " + instructions[i+1]["arguments"]
+                instructions[i]["arguments"] = instructions[i]["arguments"][:-1] + " " + instructions[i + 1]["arguments"]
                 # Update the line number of the next instruction to point to the first line of the multiline instruction
-                instructions[i+1]["line"] = instructions[i]["line"]
-                del instructions[i+1]
+                instructions[i + 1]["line"] = instructions[i]["line"]
+                del instructions[i + 1]
             else:
                 i += 1
 

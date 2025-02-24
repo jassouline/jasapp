@@ -218,8 +218,9 @@ def test_allows_valid_seccomp_container_annotation_in_pod(seccomp_profile_not_se
             "kind": "Pod",
             "metadata": {
                 "name": "my-pod", "lineNumber": 1,
-                "annotations": {
-                    "container.seccomp.security.alpha.kubernetes.io/my-container": "docker/default"
+                "annotations":
+                    {
+                        "container.seccomp.security.alpha.kubernetes.io/my-container": "docker/default"
                     }
             },
             "spec": {

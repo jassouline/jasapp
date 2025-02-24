@@ -75,10 +75,10 @@ class STX0035(BaseRule):
             for part in parts:
                 if part == "zypper" and ("install" in current_part or "in" in current_part):
                     if (
-                        "-y" not in current_part
-                        and "--assumeyes" not in current_part
-                        and "--no-confirm" not in current_part
-                        and "-n" not in current_part
+                        "-y" not in current_part and
+                        "--assumeyes" not in current_part and
+                        "--no-confirm" not in current_part and
+                        "-n" not in current_part
                     ):
                         errors.append({
                             "line": line,
@@ -111,10 +111,10 @@ class STX0035(BaseRule):
             if current_part:
                 if "zypper" in current_part and ("install" in current_part or "in" in current_part):
                     if (
-                        "-y" not in current_part
-                        and "--assumeyes" not in current_part
-                        and "--no-confirm" not in current_part
-                        and "-n" not in current_part
+                        "-y" not in current_part and
+                        "--assumeyes" not in current_part and
+                        "--no-confirm" not in current_part and
+                        "-n" not in current_part
                     ):
                         errors.append({
                             "line": line,

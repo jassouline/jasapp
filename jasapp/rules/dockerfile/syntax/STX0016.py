@@ -86,12 +86,10 @@ class STX0016(BaseRule):
         """
         packages = command.replace("npm install", "").split()
         for package in packages:
-            if not (
-                STX0016.has_version_symbol(package)
-                or STX0016.is_versioned_git(package)
-                or STX0016.is_local_tarball(package)
-                or STX0016.is_local_path(package)
-            ):
+            if not (STX0016.has_version_symbol(package)
+                    or STX0016.is_versioned_git(package)
+                    or STX0016.is_local_tarball(package)
+                    or STX0016.is_local_path(package)):
                 return False
         return True
 

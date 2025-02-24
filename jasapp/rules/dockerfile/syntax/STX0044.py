@@ -37,8 +37,8 @@ class STX0044(BaseRule):
         # Handle multi-line instructions by joining lines ending with \
         for i in range(len(instructions) - 1):
             if instructions[i]["instruction"] == "LABEL" and instructions[i]["arguments"].endswith("\\"):
-                instructions[i]["arguments"] = instructions[i]["arguments"][:-1] + instructions[i+1]["arguments"]
-                instructions[i+1]["instruction"] = "SKIP"
+                instructions[i]["arguments"] = instructions[i]["arguments"][:-1] + instructions[i + 1]["arguments"]
+                instructions[i + 1]["instruction"] = "SKIP"
 
         for instr in instructions:
             if instr["instruction"] == "SKIP":

@@ -57,10 +57,10 @@ class STX0011(BaseRule):
                         match = re.match(r"^(\d+)-(\d+)$", port_str)
                         if not match:
                             errors.append({
-                                    "line": instr["line"],
-                                    "message": f"Invalid port range '{port_str}'.",
-                                    "severity": self.severity,
-                                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
+                                "line": instr["line"],
+                                "message": f"Invalid port range '{port_str}'.",
+                                "severity": self.severity,
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
                             continue
                         start, end = int(match.group(1)), int(match.group(2))

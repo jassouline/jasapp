@@ -101,8 +101,8 @@ class STX0037(BaseRule):
             bool: True if it's a `dnf clean` command, False otherwise.
         """
         return (
-            ("dnf" in command_string or "microdnf" in command_string) and "clean all" in command_string
-            or "rm -rf /var/cache/yum" in command_string
+            ("dnf" in command_string or "microdnf" in command_string) and "clean all" in command_string or
+            "rm -rf /var/cache/yum" in command_string
         )
 
 

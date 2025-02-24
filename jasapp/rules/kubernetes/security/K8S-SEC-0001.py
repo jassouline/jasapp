@@ -97,9 +97,9 @@ def test_pod_allows_host_pid(host_pid_sharing_enabled):
             "spec": {
                 "hostPID": True,
                 "containers": [
-                  {
-                    "name": "my-container",
-                  }
+                    {
+                        "name": "my-container",
+                    }
                 ]
             }
         }
@@ -118,12 +118,12 @@ def test_container_allows_host_pid(host_pid_sharing_enabled):
             "metadata": {"name": "my-pod", "lineNumber": 1},
             "spec": {
                 "containers": [
-                  {
-                    "name": "my-container",
-                    "securityContext": {
-                        "hostPID": True
+                    {
+                        "name": "my-container",
+                        "securityContext": {
+                            "hostPID": True
+                        }
                     }
-                  }
                 ]
             }
         }
@@ -139,13 +139,26 @@ def test_deployment_allows_host_pid(host_pid_sharing_enabled):
         {
             "apiVersion": "apps/v1",
             "kind": "Deployment",
-            "metadata": {"name": "my-deployment", "lineNumber": 1},
-            "spec": {"template": {"spec": {"hostPID": True,
-                                           "containers": [
-                                              {
+            "metadata":
+                {
+                    "name": "my-deployment", "lineNumber": 1
+                },
+            "spec":
+                {
+                    "template":
+                        {
+                            "spec":
+                                {
+                                    "hostPID": True,
+                                    "containers":
+                                        [
+                                            {
                                                 "name": "my-container",
-                                              }
-                                            ]}}},
+                                            }
+                                        ]
+                                }
+                        }
+                },
         }
     ]
     errors = host_pid_sharing_enabled.check(parsed_content)

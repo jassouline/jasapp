@@ -158,15 +158,15 @@ def test_copy_with_from_argument_with_workdir(copy_without_workdir):
 
 def test_copy_with_from_argument_absolute(copy_without_workdir):
     parsed_content = [
-            {"line": 1, "instruction": "COPY", "arguments": "--from=stage source /dest"},
-        ]
+        {"line": 1, "instruction": "COPY", "arguments": "--from=stage source /dest"},
+    ]
     errors = copy_without_workdir.check(parsed_content)
     assert len(errors) == 0
 
 
 def test_copy_with_from_variable(copy_without_workdir):
     parsed_content = [
-            {"line": 1, "instruction": "COPY", "arguments": "--from=stage source $dest"},
-        ]
+        {"line": 1, "instruction": "COPY", "arguments": "--from=stage source $dest"},
+    ]
     errors = copy_without_workdir.check(parsed_content)
     assert len(errors) == 0

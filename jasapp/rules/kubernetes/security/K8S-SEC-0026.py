@@ -38,12 +38,12 @@ class K8S_SEC_0026(BaseRule):
 
                 if service_account_name == "default":
                     errors.append({
-                            "line": resource["metadata"].get("lineNumber", "N/A"),
-                            "message": f"{resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' is using the default service account. Create a dedicated service account.",
-                            "severity": self.severity,
-                            "kind": resource["kind"],
-                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
-                        })
+                        "line": resource["metadata"].get("lineNumber", "N/A"),
+                        "message": f"{resource['kind']} '{resource['metadata'].get('name', 'Unknown')}' is using the default service account. Create a dedicated service account.",
+                        "severity": self.severity,
+                        "kind": resource["kind"],
+                        "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
+                    })
 
             elif resource["kind"] in ["RoleBinding", "ClusterRoleBinding"]:
                 subjects = resource.get("subjects", [])

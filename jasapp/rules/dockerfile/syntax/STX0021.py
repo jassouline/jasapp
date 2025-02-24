@@ -47,8 +47,8 @@ class STX0021(BaseRule):
 
                 # Check if `--from` references a valid alias or unnamed stage index
                 if not (
-                    from_value in from_aliases
-                    or (from_value.isdigit() and int(from_value) < unnamed_from_count)
+                    from_value in from_aliases or
+                    (from_value.isdigit() and int(from_value) < unnamed_from_count)
                 ):
                     errors.append({
                         "line": instr["line"],

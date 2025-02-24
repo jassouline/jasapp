@@ -76,10 +76,10 @@ class STX0031(BaseRule):
                 if part == "yum" and "install" in current_part:
                     if "-y" not in current_part and "--assumeyes" not in current_part:
                         errors.append({
-                          "line": line,
-                          "message": "Use the -y switch to avoid manual input `yum install -y <package>`",
-                          "severity": self.severity,
-                          "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
+                            "line": line,
+                            "message": "Use the -y switch to avoid manual input `yum install -y <package>`",
+                            "severity": self.severity,
+                            "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                         })
 
                     if any(word.startswith("module") for word in current_part):
