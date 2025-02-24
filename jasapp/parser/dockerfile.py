@@ -123,7 +123,7 @@ ARG MY_VAR=default_value
 ENV MY_ENV=$MY_VAR
 RUN echo $MY_ENV
 RUN echo ${MY_ENV}
-RUN echo \$MY_ENV # noqa: W605
+RUN echo \$MY_ENV
 """
     parser = DockerfileParser()
     instructions = parser.parse_from_string(content)

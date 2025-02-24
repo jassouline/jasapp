@@ -60,7 +60,7 @@ class STX0011(BaseRule):
                                     "line": instr["line"],
                                     "message": f"Invalid port range '{port_str}'. Ports must be within 0 to 65535.",
                                     "severity": self.severity,
-                                    "doc_link": self.doc_link
+                                    "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                                 })
                         except ValueError:
                             # If it's not a valid range, we ignore it. The parser should have replaced variables
@@ -74,7 +74,7 @@ class STX0011(BaseRule):
                                 "line": instr["line"],
                                 "message": f"Invalid port '{port_str}'. Ports must be within 0 to 65535.",
                                 "severity": self.severity,
-                                "doc_link": self.doc_link
+                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
                             })
         return errors
 

@@ -28,7 +28,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run flake8
-        run: flake8 --max-line-length=220 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
+        run: flake8 --max-line-length=220 --ignore=W605 --extend-exclude=*.pyc,*__init__.py,./venv/*,./jasapp/rules/kubernetes/* ./
 
   pytest:
     runs-on: ubuntu-latest
