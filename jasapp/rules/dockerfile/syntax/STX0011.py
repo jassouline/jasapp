@@ -47,23 +47,28 @@ class STX0011(BaseRule):
                 ports = instr["arguments"].split()
                 for port in ports:
                     # Handle individual ports and ranges (e.g., "8080", "5000-6000")
-                    if "-" in port:
-                        start, end = map(int, port.split("-"))
-                        if not (self.is_valid_port(start) and self.is_valid_port(end)):
-                            errors.append({
-                                "line": instr["line"],
-                                "message": f"Invalid port range '{port}'. Ports must be within 0 to 65535.",
-                                "severity": self.severity,
-                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
-                            })
-                    else:
-                        if not self.is_valid_port(int(port)):
-                            errors.append({
-                                "line": instr["line"],
-                                "message": f"Invalid port '{port}'. Ports must be within 0 to 65535.",
-                                "severity": self.severity,
-                                "doc_link": f"https://github.com/jassouline/jasapp/wiki/{self.name}"
-                            })
+                    try:
+                        if "-" in port:
+                            start, end = map(int, port.split("-"))
+                            if not (self.is_valid_port(start) and self.is_valid_port(end)):
+                                errors.append({
+                                    "line": instr["line"],
+                                    "message": f"Invalid port range '{port}'. Ports must be within 0 to 65535.",
+                                    "severity": self.severity,
+                                    "doc_link": self.doc_link
+                                })
+                        else:
+                            port_num = int(port)  # Essayer de convertir en int
+                            if not self.is_valid_port(port_num):
+                                errors.append({
+                                    "line": instr["line"],
+                                    "message": f"Invalid port '{port}'. Ports must be within 0 to 65535.",
+                                    "severity": self.severity,
+                                    "doc_link": self.doc_link
+                                })
+                    except ValueError:
+                        # If not an integer, ignore it (could be a variable)
+                        continue
 
         return errors
 
@@ -102,9 +107,18 @@ def test_valid_unix_ports_allows_valid_ports(valid_unix_ports):
     assert len(errors) == 0
 
 
-def test_valid_unix_ports_ignores_non_expose(valid_unix_ports):
+def test_valid_unix_ports_ignores_other_instructions(valid_unix_ports):
     parsed_content = [
         {"line": 4, "instruction": "RUN", "arguments": "echo 'This is not an EXPOSE command'"},
+    ]
+    errors = valid_unix_ports.check(parsed_content)
+    assert len(errors) == 0
+
+
+def test_valid_unix_ports_ignores_variable(valid_unix_ports):
+    parsed_content = [
+        {"line": 1, "instruction": "ARG", "arguments": "APP_PORT=8080"},
+        {"line": 2, "instruction": "EXPOSE", "arguments": "${APP_PORT}"},
     ]
     errors = valid_unix_ports.check(parsed_content)
     assert len(errors) == 0

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1] - 2025-02-24
+### Added
+- Substitution by environment variables directly into the linter
+
 ## [0.2.0] - 2025-02-17
 ### Added
 - Gemini integration with jasapp to show live correction with detailed or not detailed output through gemini_integration.py file
