@@ -1,5 +1,6 @@
 import pytest
 from jasapp.rules.base_rule import BaseRule
+import re
 
 
 class STX0011(BaseRule):
@@ -10,7 +11,7 @@ class STX0011(BaseRule):
 
     def __init__(self):
         super().__init__(
-            friendly_name="ValidUnixPorts",
+            friendly_name="ValidExposedPorts",
             hadolint="DL3011",
             name="STX0011",
             description="Ensure exposed ports are within the valid UNIX port range (0 to 65535).",
@@ -18,17 +19,21 @@ class STX0011(BaseRule):
         )
 
     @staticmethod
-    def is_valid_port(port):
+    def is_valid_port(port_str):
         """
         Check if a port is within the valid UNIX port range (0 to 65535).
 
         Args:
-            port (int): The port number.
+            port_str (str): The port number as a string.
 
         Returns:
             bool: True if the port is valid, False otherwise.
         """
-        return 0 <= port <= 65535
+        try:
+            port = int(port_str)  # Try to convert to integer
+            return 0 <= port <= 65535
+        except ValueError:
+            return False  # Not a valid integer
 
     def check(self, instructions):
         """
@@ -45,31 +50,32 @@ class STX0011(BaseRule):
         for instr in instructions:
             if instr["instruction"] == "EXPOSE":
                 ports = instr["arguments"].split()
-                for port in ports:
-                    # Handle individual ports and ranges (e.g., "8080", "5000-6000")
-                    try:
-                        if "-" in port:
-                            start, end = map(int, port.split("-"))
+                for port_str in ports:
+                    # Handle ranges (e.g., "5000-6000")
+                    if "-" in port_str:
+                        try:  # Added a try/except here too
+                            start, end = map(int, port_str.split("-"))
                             if not (self.is_valid_port(start) and self.is_valid_port(end)):
                                 errors.append({
                                     "line": instr["line"],
-                                    "message": f"Invalid port range '{port}'. Ports must be within 0 to 65535.",
+                                    "message": f"Invalid port range '{port_str}'. Ports must be within 0 to 65535.",
                                     "severity": self.severity,
                                     "doc_link": self.doc_link
                                 })
-                        else:
-                            port_num = int(port)  # Essayer de convertir en int
-                            if not self.is_valid_port(port_num):
-                                errors.append({
-                                    "line": instr["line"],
-                                    "message": f"Invalid port '{port}'. Ports must be within 0 to 65535.",
-                                    "severity": self.severity,
-                                    "doc_link": self.doc_link
-                                })
-                    except ValueError:
-                        # If not an integer, ignore it (could be a variable)
-                        continue
+                        except ValueError:
+                            # If it's not a valid range, we ignore it. The parser should have replaced variables
+                            pass
 
+                    else:
+                        # Check individual port
+                        if not re.match(r'^\d+$', port_str) or not self.is_valid_port(port_str):
+                            # Check that port_str is all digits, *then* check if it's a valid port.
+                            errors.append({
+                                "line": instr["line"],
+                                "message": f"Invalid port '{port_str}'. Ports must be within 0 to 65535.",
+                                "severity": self.severity,
+                                "doc_link": self.doc_link
+                            })
         return errors
 
 
@@ -122,3 +128,33 @@ def test_valid_unix_ports_ignores_variable(valid_unix_ports):
     ]
     errors = valid_unix_ports.check(parsed_content)
     assert len(errors) == 0
+
+
+def test_valid_unix_ports_ignores_invalid_variable(valid_unix_ports):
+    parsed_content = [
+        {"line": 1, "instruction": "ARG", "arguments": "APP_PORT=invalid"},
+        {"line": 2, "instruction": "EXPOSE", "arguments": "${APP_PORT}"},
+    ]
+    errors = valid_unix_ports.check(parsed_content)
+    assert len(errors) == 0
+
+
+def test_valid_unix_ports_detects_invalid_single_port_with_valid(valid_unix_ports):
+    # Mix valid and invalid ports
+    parsed_content = [
+        {"line": 1, "instruction": "EXPOSE", "arguments": "80 70000 443"},
+    ]
+    errors = valid_unix_ports.check(parsed_content)
+    assert len(errors) == 1
+    assert errors[0]["line"] == 1
+    assert errors[0]["message"] == "Invalid port '70000'. Ports must be within 0 to 65535."
+
+
+def test_valid_unix_ports_detects_invalid_range_with_valid(valid_unix_ports):
+    parsed_content = [
+        {"line": 2, "instruction": "EXPOSE", "arguments": "80 1000-70000 443"},
+    ]
+    errors = valid_unix_ports.check(parsed_content)
+    assert len(errors) == 1
+    assert errors[0]["line"] == 2
+    assert errors[0]["message"] == "Invalid port range '1000-70000'. Ports must be within 0 to 65535."
