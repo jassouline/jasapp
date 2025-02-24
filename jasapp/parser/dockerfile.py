@@ -113,3 +113,57 @@ class DockerfileParser:
             if instruction:
                 self._process_instruction(instruction, arguments, line_num)
         return self.instructions
+
+
+# Tests
+def test_dockerfile_parser_variable_substitution():
+    content = """
+FROM ubuntu:latest
+ARG MY_VAR=default_value
+ENV MY_ENV=$MY_VAR
+RUN echo $MY_ENV
+RUN echo ${MY_ENV}
+RUN echo \$MY_ENV
+"""
+    parser = DockerfileParser()
+    instructions = parser.parse_from_string(content)
+    assert instructions[1]["arguments"] == "MY_VAR=default_value"  # ARG
+    assert instructions[2]["arguments"] == "MY_ENV=default_value"  # ENV avec substitution ARG
+    assert instructions[3]["arguments"] == "echo default_value"  # Substitution dans RUN
+    assert instructions[4]["arguments"] == "echo default_value"  # Substitution avec {}
+    assert instructions[5]["arguments"] == "echo $MY_ENV"  # $ échappé
+
+
+def test_dockerfile_parser_arg_override_env():
+    content = """
+FROM ubuntu:latest
+ENV MY_VAR=env_value
+ARG MY_VAR=arg_value
+RUN echo $MY_VAR
+"""
+    parser = DockerfileParser()
+    instructions = parser.parse_from_string(content)
+    assert instructions[3]["arguments"] == "echo arg_value"  # ARG doit remplacer ENV
+
+
+def test_dockerfile_parser_arg_from_environment():
+    os.environ["MY_ARG"] = "env_arg_value"
+    content = """
+FROM ubuntu:latest
+ARG MY_ARG
+RUN echo $MY_ARG
+    """
+    parser = DockerfileParser()
+    instructions = parser.parse_from_string(content)
+    assert instructions[2]["arguments"] == "echo env_arg_value"
+    del os.environ["MY_ARG"]  # Clean up
+
+
+def test_dockerfile_parser_no_substitution_if_undefined():
+    content = """
+FROM ubuntu:latest
+RUN echo $UNDEFINED_VAR
+"""
+    parser = DockerfileParser()
+    instructions = parser.parse_from_string(content)
+    assert instructions[1]["arguments"] == "echo ${UNDEFINED_VAR}"  # Doit rester tel quel

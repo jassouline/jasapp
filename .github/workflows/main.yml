@@ -65,6 +65,9 @@ jobs:
       - name: Run pytest for Dockerfile performance rules
         run: pytest jasapp/rules/dockerfile/performance/*.py
 
+      - name: Run pytest for Dockerfile parser arguments substitution
+        run: pytest jasapp/parser/dockerfile.py
+
   docker-lint:
     needs: [flake8, pytest]
     runs-on: ubuntu-latest
